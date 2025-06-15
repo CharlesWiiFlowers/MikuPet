@@ -10,7 +10,6 @@ class Actions(tkinter.Frame):
         self.canvas.bind("<ButtonPress-1>", self.handle_press)
         self.canvas.bind("<ButtonRelease-1>", self.handle_release)
 
-
     def handle_click(self, event:tkinter.Event):
         print(f"Clicked at {event.x}, {event.y}")
 

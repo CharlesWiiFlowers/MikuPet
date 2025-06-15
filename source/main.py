@@ -6,7 +6,7 @@ class AppUI(tkinter.Tk):
     def __init__(self):
         # Initialize the main window
         super().__init__()
-        self.sprite = Sprite()
+        self.sprite = Sprite("./assets/miku_sprite_sheet_original.png")
         self.actions = Actions(self.sprite.canvas, self)
         self.resizable(False, False)
         self.overrideredirect(True)
