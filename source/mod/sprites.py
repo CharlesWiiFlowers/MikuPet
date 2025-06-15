@@ -2,7 +2,7 @@ import tkinter
 from PIL import Image, ImageTk
 
 class Sprite():
-    def __init__(self, image_path:str, x:int = 59, y:int = 65, animation_speed:int = 200, background_color:str = "#96C8FA"):
+    def __init__(self, image_path:str, x:int = 59, y:int = 65, animation_speed:int = 300, background_color:str = "#96C8FA"):
         self.IMAGE_PATH = image_path
         self.x = x
         self.y = y
