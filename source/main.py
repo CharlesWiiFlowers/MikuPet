@@ -1,11 +1,13 @@
 import tkinter
 from mod.sprites import Sprite
+from mod.actions import Actions
 
 class AppUI(tkinter.Tk):
     def __init__(self):
         # Initialize the main window
         super().__init__()
         self.sprite = Sprite()
+        self.actions = Actions(self.sprite.canvas, self)
         self.resizable(False, False)
         self.overrideredirect(True)
         self.attributes("-topmost", True)

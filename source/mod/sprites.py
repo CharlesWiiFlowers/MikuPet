@@ -2,7 +2,7 @@ import tkinter
 from PIL import Image, ImageTk
 
 class Sprite():
-    def __init__(self, image_path:str = "./assets/miku_sprite_71x59.png", x:int = 59, y:int = 65, animation_speed:int = 200, background_color:str = "#96C8FA"):
+    def __init__(self, image_path:str = "./assets/miku_sprite_71x59.png", x:int = 58, y:int = 65, animation_speed:int = 200, background_color:str = "#96C8FA"):
         self.IMAGE_PATH = image_path
         self.x = x
         self.y = y
@@ -10,10 +10,10 @@ class Sprite():
         self.frames = []
         self.current_frame = 0
         self.BACKGROUND_COLOR = background_color
-
-    def sprite_sheet(self):
         self.canvas = tkinter.Canvas(width=self.x, height=self.y, bg=self.BACKGROUND_COLOR, highlightthickness=0)
         self.canvas.pack()
+
+    def sprite_sheet(self):
 
         sprite_sheet = Image.open(self.IMAGE_PATH)
 
