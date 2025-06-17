@@ -3,10 +3,23 @@ from mod.sprites import Sprite
 from mod.actions import Actions
 
 class AppUI(tkinter.Tk):
+
     def __init__(self):
         # Initialize the main window
         super().__init__()
-        self.sprite = Sprite("./assets/miku_sprite_sheet_original.png")
+
+        IMAGE_PATH = ["./assets/miku_sprite_sheet_original.png",
+                  "./assets/miku_sprite_sheet_1.png",
+                  "./assets/miku_sprite_sheet_2.png",
+                  "./assets/miku_sprite_sheet_3.png",
+                  "./assets/miku_sprite_sheet_4.png",
+                  "./assets/miku_sprite_sheet_5.png",
+                  "./assets/miku_sprite_sheet_6.png",
+                  "./assets/miku_sprite_sheet_7.png",
+                  ]
+
+
+        self.sprite = Sprite(IMAGE_PATH)
         self.actions = Actions(self.sprite.canvas, self)
         self.resizable(False, False)
         self.overrideredirect(True)
