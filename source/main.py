@@ -1,8 +1,10 @@
 import tkinter
-import json
+import threading
+import warnings
 from mod.sprites import Animation
 from mod.actions import Actions
 from mod.actions import AutoActions
+
 
 class AppUI(tkinter.Tk):
 
@@ -38,8 +40,41 @@ class AppUI(tkinter.Tk):
         self.sprite.animation()
         self.auto_actions.gravity()
 
+    def stop(self):
+        self.quit()
+
+class AppBroadcast(AppUI):
+    def __init__(self):
+        super().__init__()
+        self.running = True
+        threading.Thread(target=self.listen_to_console, daemon=True).start()
+        
+        # Create the main window
+        self.mainloop()
+        
+    def listen_to_console(self):
+        while self.running:
+            # This thread can be used to listen to console input or other events
+            try:
+                command = input()
+                if command.lower() == 'miku bye' or command.lower() == 'bye':
+                    self.running = False
+                    self.broadcast("Goodbye~!! 💕👋.")
+                    self.stop()
+                else:
+                    self.broadcast("I do not understand you~ 🥺")
+            except EOFError as e:
+                warnings.warn(f"Error: {e}")
+                break
+    
+    def broadcast(self, text:str):
+        print(f"Miku: {text}")
+
+    def run(self):
+        # This thread can be used for broadcasting messages or handling background tasks
+        pass
 
 if __name__ == "__main__":
-    # Create the main window
-    AppUI().mainloop()
-        
+    # Start the program
+    AppBroadcast().listen_to_console()
+    #AppUI().mainloop()
