@@ -6,7 +6,7 @@ class Sprite():
     def __init__(self, image_path:list[str], sprite_number_of, initial_x = 59, initial_y = 100, animation_speed:int = 100, background_color:str = "#96C8FA"):
         self.IMAGE_PATH = image_path
         self.SPRITE_NUMBER = sprite_number_of
-        self.ANIMATION_SPEED = animation_speed # in milliseconds
+        self.ANIMATION_SPEED = animation_speed # in milliseconds, less is faster
         
         # Every frames here
         self.frames = []
