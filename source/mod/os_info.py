@@ -1,4 +1,5 @@
 import win32gui
+import warnings
 
 def get_active_window(side:int = 0) -> int:
     """
@@ -24,5 +25,5 @@ def get_active_window(side:int = 0) -> int:
                 return bottom
 
     except Exception as e:
-        print(f"Error getting active window bottom: {e}")
+        warnings.warn(f"Error getting active window bottom: {e}")
         return 0
