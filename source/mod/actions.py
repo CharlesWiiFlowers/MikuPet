@@ -41,7 +41,7 @@ class AutoActions(tkinter.Frame):
         self.GRAVITY_VELOCITY:int = 1 # TODO: Make this an exponential value
         # Default milliseconds for gravity check, can't be ajusted for now
         # Bug: If this is not set to 1, the gravity will not work properly
-        self.MILLISECONDS:int = milliseconds
+        self.MILLISECONDS:int = milliseconds # Delay in milliseconds for gravity checks
 
     def gravity(self, enabled:bool = True):
         if not enabled:
@@ -49,15 +49,17 @@ class AutoActions(tkinter.Frame):
 
         y = self.reference.winfo_y()
 
+        # Check if Miku is upper than the active window bottom
         if(y < (mod.os_info.get_active_window_bottom() - self.reference.winfo_height() - 10)): # 10px margin
             self.isFlying = True
             self.reference.geometry(f"+{self.reference.winfo_x()}+{y + self.GRAVITY_VELOCITY}")
-            print(f" {y + self.GRAVITY_VELOCITY} < {mod.os_info.get_active_window_bottom() - self.reference.winfo_height()}")
+        # Check if Miku is lower than the active window bottom
         elif(y > (mod.os_info.get_active_window_bottom() - self.reference.winfo_height() - 10)):
             self.isFlying = True
-            self.reference.geometry(f"+{self.reference.winfo_x()}+{y - self.GRAVITY_VELOCITY}")
-            print(f" {y + self.GRAVITY_VELOCITY} < {mod.os_info.get_active_window_bottom() - self.reference.winfo_height()}")
+            self.reference.geometry(f"+{self.reference.winfo_x()}+{y - self.GRAVITY_VELOCITY}") # 10px margin
         else:
+            # If Miku is at the bottom of the active window, stop flying
             self.isFlying = False
 
+        # Schedule the next gravity check
         self.reference.after(self.MILLISECONDS, self.gravity)
