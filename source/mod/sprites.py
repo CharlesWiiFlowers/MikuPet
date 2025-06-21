@@ -71,7 +71,7 @@ class Animation(Sprite):
     def animation(self):
         """
         Start the animation.
-        :param animation: The animation to start.
+        :change self.animation_list
         :0: Waiting animation; 1: Walking animation; 2: Jumping animation; 3: Sneezing animation; 4: Coloring animation; 5: Dragging animation; 6: Sleeping animation; 7: Dancing animation
         :return: None
         """
