@@ -2,6 +2,7 @@ import tkinter
 import json
 from mod.sprites import Sprite
 from mod.actions import Actions
+from mod.actions import AutoActions
 
 class AppUI(tkinter.Tk):
 
@@ -23,6 +24,7 @@ class AppUI(tkinter.Tk):
 
         self.sprite = Sprite(IMAGE_PATH, SPRITE_NUMBER_OF_FRAMES)
         self.actions = Actions(self.sprite.canvas, self)
+        self.auto_actions = AutoActions(self.sprite.canvas, self)
 
         # Configure the main window
         self.resizable(False, False)
@@ -34,6 +36,7 @@ class AppUI(tkinter.Tk):
 
         # Start the sprite animation
         self.sprite.sprite_sheet()
+        self.auto_actions.gravity()
 
 
 if __name__ == "__main__":
