@@ -1,6 +1,6 @@
 import tkinter
 import json
-from mod.sprites import Sprite
+from mod.sprites import Animation
 from mod.actions import Actions
 from mod.actions import AutoActions
 
@@ -22,7 +22,7 @@ class AppUI(tkinter.Tk):
 
         SPRITE_NUMBER_OF_FRAMES = [20, 8, 9, 8, 5, 3, 12]
 
-        self.sprite = Sprite(IMAGE_PATH, SPRITE_NUMBER_OF_FRAMES)
+        self.sprite = Animation(IMAGE_PATH, SPRITE_NUMBER_OF_FRAMES)
         self.actions = Actions(self.sprite.canvas, self)
         self.auto_actions = AutoActions(self.sprite.canvas, self)
 
@@ -35,7 +35,7 @@ class AppUI(tkinter.Tk):
         self.wm_attributes("-transparentcolor", self.sprite.BACKGROUND_COLOR)
 
         # Start the sprite animation
-        self.sprite.sprite_sheet()
+        self.sprite.animation()
         self.auto_actions.gravity()
 
 
