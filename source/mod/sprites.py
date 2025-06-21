@@ -24,7 +24,6 @@ class Sprite():
     def update_animation_frames(self):
         # Add to waiting_animation_frames
         for i in range(0, 19):
-            print(self.frames[i])
             self.waiting_animation_frames.append(self.frames[i])
 
     def sprite_sheet(self):
@@ -55,3 +54,4 @@ class Sprite():
         self.canvas.config(width=self.frames_width[0], height=self.y)
         self.canvas.itemconfig(self.canvas.find_all()[0], image=self.waiting_animation_frames[self.current_frame])
         self.canvas.after(self.ANIMATION_SPEED, self.waiting_animation)
+        
