@@ -1,4 +1,5 @@
 import tkinter
+import json
 from mod.sprites import Sprite
 from mod.actions import Actions
 
@@ -8,7 +9,7 @@ class AppUI(tkinter.Tk):
         # Initialize the main window
         super().__init__()
 
-        IMAGE_PATH = ["./assets/miku_sprite_sheet_original.png",
+        IMAGE_PATH = [
                   "./assets/miku_sprite_sheet_1.png",
                   "./assets/miku_sprite_sheet_2.png",
                   "./assets/miku_sprite_sheet_3.png",
@@ -18,15 +19,20 @@ class AppUI(tkinter.Tk):
                   "./assets/miku_sprite_sheet_7.png",
                   ]
 
+        SPRITE_NUMBER_OF_FRAMES = [20, 8, 9, 8, 5, 3, 12]
 
-        self.sprite = Sprite(IMAGE_PATH)
+        self.sprite = Sprite(IMAGE_PATH, SPRITE_NUMBER_OF_FRAMES)
         self.actions = Actions(self.sprite.canvas, self)
+
+        # Configure the main window
         self.resizable(False, False)
         self.overrideredirect(True)
         self.attributes("-topmost", True)
         #self.attributes("-alpha", 0.5)  # Set transparency to 50%
         self.config(bg=self.sprite.BACKGROUND_COLOR)
         self.wm_attributes("-transparentcolor", self.sprite.BACKGROUND_COLOR)
+
+        # Start the sprite animation
         self.sprite.sprite_sheet()
 
 
