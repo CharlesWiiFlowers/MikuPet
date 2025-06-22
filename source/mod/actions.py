@@ -48,13 +48,16 @@ class AutoActions(tkinter.Frame):
             return
 
         y = self.reference.winfo_y()
+        active_window_bottom = mod.os_info.get_active_window(3)  # Get the bottom coordinate of the active window
 
         # Check if Miku is upper than the active window bottom
-        if(y < (mod.os_info.get_active_window(3) - self.reference.winfo_height() - 10)): # 10px margin
+        if(y < (active_window_bottom - self.reference.winfo_height() - 10)): # 10px margin
             self.isFlying = True
+            # Move Miku down by GRAVITY_VELOCITY pixels
+            # This is to simulate gravity, Miku will fall down
             self.reference.geometry(f"+{self.reference.winfo_x()}+{y + self.GRAVITY_VELOCITY}")
         # Check if Miku is lower than the active window bottom
-        elif(y > (mod.os_info.get_active_window(3) - self.reference.winfo_height() - 10)):
+        elif(y > (active_window_bottom - self.reference.winfo_height() - 10)):
             self.isFlying = True
             self.reference.geometry(f"+{self.reference.winfo_x()}+{y - self.GRAVITY_VELOCITY}") # 10px margin
         else:
