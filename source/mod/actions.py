@@ -48,12 +48,10 @@ class AutoActions(tkinter.Frame):
 
     def handle_focus_in(self, event:tkinter.Event):
         """Handle focus in event to stop gravity checks."""
-        print("Focus gained, gravity disabled")
         self.has_focus = True
 
     def handle_focus_out(self, event:tkinter.Event):
         """Handle focus out event to start gravity checks."""
-        print("Focus lost, gravity enabled")
         self.has_focus = False
 
     def gravity(self, enabled:bool = True):
