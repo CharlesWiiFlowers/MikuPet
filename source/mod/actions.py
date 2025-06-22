@@ -12,14 +12,14 @@ class Actions(tkinter.Frame):
         self.canvas.bind("<ButtonRelease-1>", self.handle_release)
 
     def handle_click(self, event:tkinter.Event):
-        print(f"Clicked at {event.x}, {event.y}")
+        #print(f"Clicked at {event.x}, {event.y}")
+        pass
 
     def handle_motion(self, event:tkinter.Event):
         if self.press:
             # If the mouse button is pressed, we can handle dragging or other actions
             self.reference.geometry(f"+{event.x_root}+{event.y_root}")
             #print(f"Mouse dragged to {event.x}, {event.y}")
-            print(f"{self.reference.winfo_y() + self.reference.winfo_height()}")
         else:
             # Handle mouse movement without pressing
             #print(f"Mouse moved to {event.x}, {event.y}")
@@ -42,27 +42,43 @@ class AutoActions(tkinter.Frame):
         # Default milliseconds for gravity check, can't be ajusted for now
         # Bug: If this is not set to 1, the gravity will not work properly
         self.MILLISECONDS:int = milliseconds # Delay in milliseconds for gravity checks
+        self.reference.bind("<FocusIn>", self.handle_focus_in)  # Stop gravity when the canvas gets focus, i know this is counterintuitive
+        self.reference.bind("<FocusOut>", self.handle_focus_out)  # Start gravity when the canvas loses focus
+        self.has_focus = False
+
+    def handle_focus_in(self, event:tkinter.Event):
+        """Handle focus in event to stop gravity checks."""
+        print("Focus gained, gravity disabled")
+        self.has_focus = True
+
+    def handle_focus_out(self, event:tkinter.Event):
+        """Handle focus out event to start gravity checks."""
+        print("Focus lost, gravity enabled")
+        self.has_focus = False
 
     def gravity(self, enabled:bool = True):
         if not enabled:
             return
 
-        y = self.reference.winfo_y()
-        active_window_bottom = mod.os_info.get_active_window(3)  # Get the bottom coordinate of the active window
+        if not self.has_focus:
+            # If Miku is not focused, we can apply gravity
 
-        # Check if Miku is upper than the active window bottom
-        if(y < (active_window_bottom - self.reference.winfo_height() - 10)): # 10px margin
-            self.isFlying = True
-            # Move Miku down by GRAVITY_VELOCITY pixels
-            # This is to simulate gravity, Miku will fall down
-            self.reference.geometry(f"+{self.reference.winfo_x()}+{y + self.GRAVITY_VELOCITY}")
-        # Check if Miku is lower than the active window bottom
-        elif(y > (active_window_bottom - self.reference.winfo_height() - 10)):
-            self.isFlying = True
-            self.reference.geometry(f"+{self.reference.winfo_x()}+{y - self.GRAVITY_VELOCITY}") # 10px margin
-        else:
-            # If Miku is at the bottom of the active window, stop flying
-            self.isFlying = False
+            y = self.reference.winfo_y()
+            active_window_bottom = mod.os_info.get_active_window(3)  # Get the bottom coordinate of the active window
+
+            # Check if Miku is upper than the active window bottom
+            if(y < (active_window_bottom - self.reference.winfo_height() - 10)): # 10px margin
+                self.isFlying = True
+                # Move Miku down by GRAVITY_VELOCITY pixels
+                # This is to simulate gravity, Miku will fall down
+                self.reference.geometry(f"+{self.reference.winfo_x()}+{y + self.GRAVITY_VELOCITY}")
+            # Check if Miku is lower than the active window bottom
+            elif(y > (active_window_bottom - self.reference.winfo_height() - 10)):
+                self.isFlying = True
+                self.reference.geometry(f"+{self.reference.winfo_x()}+{y - self.GRAVITY_VELOCITY}") # 10px margin
+            else:
+                # If Miku is at the bottom of the active window, stop flying
+                self.isFlying = False
 
         # Schedule the next gravity check
         self.reference.after(self.MILLISECONDS, self.gravity)
