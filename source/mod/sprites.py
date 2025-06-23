@@ -3,7 +3,7 @@ import warnings
 from PIL import Image, ImageTk
 
 class Sprite():
-    def __init__(self, image_path:list[str], sprite_number_of, initial_x = 59, initial_y = 100, animation_speed:int = 100, background_color:str = "#96C8FA"):
+    def __init__(self, image_path:list[str], sprite_number_of, initial_x = 76, initial_y = 100, animation_speed:int = 100, background_color:str = "#96C8FA"):
         self.IMAGE_PATH = image_path
         self.SPRITE_NUMBER = sprite_number_of
         self.ANIMATION_SPEED = animation_speed # in milliseconds, less is faster
@@ -61,11 +61,12 @@ class Sprite():
                 self.frames.append(ImageTk.PhotoImage(frame))
 
         self.canvas.create_image(0, 0, anchor=tkinter.NW, image=self.frames[self.current_frame])
+        self.canvas.config(width=80, height=self.y)  # Set the canvas size to the first frame width and initial height
         
 class Animation(Sprite):
     def __init__(self, image_path:list[str], sprite_number_of, initial_x = 59, initial_y = 100, animation_speed:int = 100, background_color:str = "#96C8FA"):
         super().__init__(image_path, sprite_number_of, initial_x, initial_y, animation_speed, background_color)
-        self.animation_list:int = 0
+        self.animation_list:int = 2
         # 0: Waiting animation; 1: Walking animation; 2: Jumping animation; 3: Sneezing animation; 4: Coloring animation; 5: Dragging animation; 6: Sleeping animation; 7: Dancing animation
 
     def animation(self):
@@ -91,37 +92,37 @@ class Animation(Sprite):
                 self.canvas.after(self.ANIMATION_SPEED, self.animation)
             case 1:
                 self.current_frame = (self.current_frame + 1) % len(self.walking_animation_frames)
-                self.canvas.config(width=self.frames_width[0], height=self.y)
+                self.canvas.config(width=self.frames_width[1], height=self.y)
                 self.canvas.itemconfig(self.canvas.find_all()[0], image=self.walking_animation_frames[self.current_frame])
                 self.canvas.after(self.ANIMATION_SPEED, self.animation)
             case 2:
                 self.current_frame = (self.current_frame + 1) % len(self.jumping_animation_frames)
-                self.canvas.config(width=self.frames_width[0], height=self.y)
+                self.canvas.config(width=self.frames_width[2], height=self.y)
                 self.canvas.itemconfig(self.canvas.find_all()[0], image=self.jumping_animation_frames[self.current_frame])
                 self.canvas.after(self.ANIMATION_SPEED, self.animation)
             case 3:
                 self.current_frame = (self.current_frame + 1) % len(self.sneezing_animation_frames)
-                self.canvas.config(width=self.frames_width[0], height=self.y)
+                self.canvas.config(width=self.frames_width[3], height=self.y)
                 self.canvas.itemconfig(self.canvas.find_all()[0], image=self.sneezing_animation_frames[self.current_frame])
                 self.canvas.after(self.ANIMATION_SPEED, self.animation)
             case 4:
                 self.current_frame = (self.current_frame + 1) % len(self.coloring_animation_frames)
-                self.canvas.config(width=self.frames_width[0], height=self.y)
+                self.canvas.config(width=self.frames_width[4], height=self.y)
                 self.canvas.itemconfig(self.canvas.find_all()[0], image=self.coloring_animation_frames[self.current_frame])
                 self.canvas.after(self.ANIMATION_SPEED, self.animation)
             case 5:
                 self.current_frame = (self.current_frame + 1) % len(self.dragging_animation_frames)
-                self.canvas.config(width=self.frames_width[0], height=self.y)
+                self.canvas.config(width=self.frames_width[5], height=self.y)
                 self.canvas.itemconfig(self.canvas.find_all()[0], image=self.dragging_animation_frames[self.current_frame])
                 self.canvas.after(self.ANIMATION_SPEED, self.animation)
             case 6:
                 self.current_frame = (self.current_frame + 1) % len(self.sleeping_animation_frames)
-                self.canvas.config(width=self.frames_width[0], height=self.y)
+                self.canvas.config(width=self.frames_width[6], height=self.y)
                 self.canvas.itemconfig(self.canvas.find_all()[0], image=self.sleeping_animation_frames[self.current_frame])
                 self.canvas.after(self.ANIMATION_SPEED, self.animation)
             case 7:
                 self.current_frame = (self.current_frame + 1) % len(self.dancing_animation_frames)
-                self.canvas.config(width=self.frames_width[0], height=self.y)
+                self.canvas.config(width=self.frames_width[7], height=self.y)
                 self.canvas.itemconfig(self.canvas.find_all()[0], image=self.dancing_animation_frames[self.current_frame])
                 self.canvas.after(self.ANIMATION_SPEED, self.animation)
             case _:
