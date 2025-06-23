@@ -1,4 +1,5 @@
 import tkinter
+import math
 import mod.os_info
 
 class Actions(tkinter.Frame):
@@ -38,9 +39,7 @@ class AutoActions(tkinter.Frame):
         self.canvas = Canvas
         self.reference = reference
         self.isFlying:bool = False
-        self.GRAVITY_VELOCITY:int = 1 # TODO: Make this an exponential value
-        # Default milliseconds for gravity check, can't be ajusted for now
-        # Bug: If this is not set to 1, the gravity will not work properly
+        self.GRAVITY:int = 1 # Gravity constant, can be adjusted for different effects
         self.MILLISECONDS:int = milliseconds # Delay in milliseconds for gravity checks
         self.reference.bind("<FocusIn>", self.handle_focus_in)  # Stop gravity when the canvas gets focus, i know this is counterintuitive
         self.reference.bind("<FocusOut>", self.handle_focus_out)  # Start gravity when the canvas loses focus
@@ -62,18 +61,24 @@ class AutoActions(tkinter.Frame):
             # If Miku is not focused, we can apply gravity
 
             y = self.reference.winfo_y()
-            active_window_bottom = mod.os_info.get_active_window(3)  # Get the bottom coordinate of the active window
+            active_window_bottom = mod.os_info.get_active_window(3) - self.reference.winfo_height() - 10  # Get the bottom coordinate of the active window - 10px margin - the height of Miku
+            gravity_velocity = math.ceil(math.sqrt(2 * self.GRAVITY * (y + 0.1)))  # Calculate the gravity velocity based on the GRAVITY value
+            print(gravity_velocity)
+
+            if ((y < (active_window_bottom)) and ((y + gravity_velocity) > (active_window_bottom))):
+                print("o")
+                gravity_velocity = 1
 
             # Check if Miku is upper than the active window bottom
-            if(y < (active_window_bottom - self.reference.winfo_height() - 10)): # 10px margin
+            if(y < (active_window_bottom)): # 10px margin
                 self.isFlying = True
                 # Move Miku down by GRAVITY_VELOCITY pixels
                 # This is to simulate gravity, Miku will fall down
-                self.reference.geometry(f"+{self.reference.winfo_x()}+{y + self.GRAVITY_VELOCITY}")
+                self.reference.geometry(f"+{self.reference.winfo_x()}+{y + gravity_velocity}")
             # Check if Miku is lower than the active window bottom
-            elif(y > (active_window_bottom - self.reference.winfo_height() - 10)):
+            elif(y > (active_window_bottom)):
                 self.isFlying = True
-                self.reference.geometry(f"+{self.reference.winfo_x()}+{y - self.GRAVITY_VELOCITY}") # 10px margin
+                self.reference.geometry(f"+{self.reference.winfo_x()}+{y - gravity_velocity}") # 10px margin                
             else:
                 # If Miku is at the bottom of the active window, stop flying
                 self.isFlying = False
