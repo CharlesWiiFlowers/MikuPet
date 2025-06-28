@@ -66,7 +66,7 @@ class Sprite():
 class Animation(Sprite):
     def __init__(self, image_path:list[str], sprite_number_of, initial_x = 59, initial_y = 100, animation_speed:int = 100, background_color:str = "#96C8FA"):
         super().__init__(image_path, sprite_number_of, initial_x, initial_y, animation_speed, background_color)
-        self.animation_list:int = 2
+        self.animation_list:int = 0
         # 0: Waiting animation; 1: Walking animation; 2: Jumping animation; 3: Sneezing animation; 4: Coloring animation; 5: Dragging animation; 6: Sleeping animation; 7: Dancing animation
 
     def animation(self):
