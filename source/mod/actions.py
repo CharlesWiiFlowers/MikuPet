@@ -1,6 +1,7 @@
 import tkinter
 import math
 import mod.os_info
+import warnings
 
 class Actions(tkinter.Frame):
     def __init__(self, Canvas:tkinter.Canvas, reference:tkinter.Tk):
@@ -39,7 +40,7 @@ class AutoActions(tkinter.Frame):
         self.canvas = Canvas
         self.reference = reference
         self.isFlying:bool = False
-        self.GRAVITY:int = 1 # Gravity constant, can be adjusted for different effects
+        self.GRAVITY:float = 0.5 # Gravity constant, can be adjusted for different effects
         self.WALKING_VELOCITY:int = 10 # Speed of walking, can be adjusted for different effects
         self.MILLISECONDS:int = milliseconds # Delay in milliseconds for gravity checks
         self.reference.bind("<FocusIn>", self.handle_focus_in)  # Stop gravity when the canvas gets focus, i know this is counterintuitive
@@ -61,9 +62,13 @@ class AutoActions(tkinter.Frame):
         if not self.has_focus:
             # If Miku is not focused, we can apply gravity
 
-            y = self.reference.winfo_y()
-            active_window_bottom = mod.os_info.get_active_window(3) - self.reference.winfo_height() - 10  # Get the bottom coordinate of the active window - 10px margin - the height of Miku
-            gravity_velocity = math.ceil(math.sqrt(2 * self.GRAVITY * (y + 0.1)))  # Calculate the gravity velocity based on the GRAVITY value
+            try:
+                y = self.reference.winfo_y()
+                active_window_bottom = mod.os_info.get_active_window(3) - self.reference.winfo_height() - 10  # Get the bottom coordinate of the active window - 10px margin - the height of Miku
+                gravity_velocity = math.ceil(math.sqrt(2 * self.GRAVITY * (y + 0.1)))  # Calculate the gravity velocity based on the GRAVITY value
+            except ValueError as e:
+                warnings.warn(f"Error calculating gravity: {e}. Miku may not be positioned correctly.", UserWarning)
+                return
 
             if ((y < (active_window_bottom)) and ((y + gravity_velocity) > (active_window_bottom))):
                 gravity_velocity = 1
@@ -85,17 +90,25 @@ class AutoActions(tkinter.Frame):
         # Schedule the next gravity check
         self.reference.after(self.MILLISECONDS, self.gravity)
     
-    def move_in_x(self):
-        left = mod.os_info.get_active_window(1)
-        active_window_left = left - self.reference.winfo_width() + 70 # Get the left coordinate of the active window + 10px margin + the width of Miku
-        right = mod.os_info.get_active_window(2)
-        active_window_right = right - 10 - self.reference.winfo_width()
-        active_window_center = (active_window_right - active_window_left)/2
-        x = self.reference.winfo_x()
+    def move_in_x(self, enabled:bool = True):
+        if not enabled:
+            return
 
-        # TODO: Add x < active_window_center
-        if((x < active_window_left) and (True)):
-            print(f"{x}, {active_window_left}, {active_window_center}, {active_window_right}")
-            # If Miku is too far left, move her to the right
-            self.reference.geometry(f"+{x + self.WALKING_VELOCITY}+{self.reference.winfo_y()}")
+        if not self.has_focus:
+            
+            left = mod.os_info.get_active_window(1)
+            active_window_left = left - self.reference.winfo_width() + 70 # Get the left coordinate of the active window + 70px margin - the width of Miku
+            right = mod.os_info.get_active_window(2)
+            active_window_right = right - self.reference.winfo_width() - 15 # Get the left coordinate of the active window - the width of Miku - 15px (margin)
+            active_window_center = active_window_left +((active_window_right - active_window_left)/2)
+            x = self.reference.winfo_x()
+
+            if((x < active_window_left)):
+                # If Miku is too far left, move her to the right
+                self.reference.geometry(f"+{x + self.WALKING_VELOCITY}+{self.reference.winfo_y()}")
+            elif((x > active_window_right)):
+                # If Miku is too far right, move her to the left
+                self.reference.geometry(f"+{x - self.WALKING_VELOCITY}+{self.reference.winfo_y()}")
+
+
         self.reference.after(self.MILLISECONDS, self.move_in_x)

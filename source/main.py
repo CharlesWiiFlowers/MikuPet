@@ -39,6 +39,7 @@ class AppUI(tkinter.Tk):
         # Start the sprite animation
         self.sprite.animation()
         self.auto_actions.gravity()
+        self.auto_actions.move_in_x()
 
     def stop(self):
         self.quit()
