@@ -33,13 +33,15 @@ class Sprite():
         
         self.waiting_animation_frames = self.frames[:19]  # Use the first 20 frames for the waiting animation
         self.walking_animation_frames = self.frames[20:26]  # Use the next 8 frames for the walking animation
-        self.jumping_animation_frames = self.frames[29:37]  # Use the next 9 frames for the jumping animation
+        self.walking_animation_left_frames = self.frames[27:33]
+        #self.jumping_animation_frames = self.frames[29:37]  # Use the next 9 frames for the jumping animation
         self.sneezing_animation_frames = self.frames[38:46]  # Use the next 8 frames for the sneezing animation
         self.coloring_animation_frames = self.frames[47:49]  # Use the next 3 frames for the coloring animation
         # Frame 50 won't be used in any animation
         self.dragging_animation_frames = self.frames[51:53]  # Use the next 2 frames for the dragging animation
         self.sleeping_animation_frames = self.frames[54:54]  # Use the next 1 frames for the sleeping animation
         self.dancing_animation_frames = self.frames[55:67]  # Use the next 12 frames for the dancing animation
+          # Use the next 8 frames for the walking left animation
 
     def sprite_sheet(self):
         # Load the sprite sheet image
@@ -66,10 +68,10 @@ class Sprite():
 class Animation(Sprite):
     def __init__(self, image_path:list[str], sprite_number_of, initial_x = 59, initial_y = 100, animation_speed:int = 100, background_color:str = "#96C8FA"):
         super().__init__(image_path, sprite_number_of, initial_x, initial_y, animation_speed, background_color)
-        self.animation_list:int = 0
+        self.animation_list = 0  # Default animation is waiting animation
         # 0: Waiting animation; 1: Walking animation; 2: Jumping animation; 3: Sneezing animation; 4: Coloring animation; 5: Dragging animation; 6: Sleeping animation; 7: Dancing animation
 
-    def animation(self):
+    def animation(self, animation:int = 0):
         """
         Start the animation.
         :change self.animation_list
@@ -124,6 +126,11 @@ class Animation(Sprite):
                 self.current_frame = (self.current_frame + 1) % len(self.dancing_animation_frames)
                 self.canvas.config(width=self.frames_width[7], height=self.y)
                 self.canvas.itemconfig(self.canvas.find_all()[0], image=self.dancing_animation_frames[self.current_frame])
+                self.canvas.after(self.ANIMATION_SPEED, self.animation)
+            case 8:
+                self.current_frame = (self.current_frame + 1) % len(self.walking_animation_left_frames)
+                self.canvas.config(width=self.frames_width[2], height=self.y)
+                self.canvas.itemconfig(self.canvas.find_all()[0], image=self.walking_animation_left_frames[self.current_frame])
                 self.canvas.after(self.ANIMATION_SPEED, self.animation)
             case _:
                 warnings.warn(f"Animation {self.animation_list} not implemented. Reseting to default animation.", UserWarning)
