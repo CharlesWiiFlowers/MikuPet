@@ -36,12 +36,13 @@ class Actions(tkinter.Frame):
         #print(f"Mouse button released at {event.x}, {event.y}")
 
 class AutoActions(tkinter.Frame):
-    def __init__(self, Canvas:tkinter.Canvas, reference:tkinter.Tk, milliseconds:int = 16):
+    def __init__(self, Canvas:tkinter.Canvas, reference, milliseconds:int = 16):
+        #self.instance = instance
         self.canvas = Canvas
         self.reference = reference
         self.isFlying:bool = False
         self.GRAVITY:float = 0.5 # Gravity constant, can be adjusted for different effects
-        self.WALKING_VELOCITY:int = 10 # Speed of walking, can be adjusted for different effects
+        self.WALKING_VELOCITY:int = 2 # Speed of walking, can be adjusted for different effects
         self.MILLISECONDS:int = milliseconds # Delay in milliseconds for gravity checks
         self.reference.bind("<FocusIn>", self.handle_focus_in)  # Stop gravity when the canvas gets focus, i know this is counterintuitive
         self.reference.bind("<FocusOut>", self.handle_focus_out)  # Start gravity when the canvas loses focus
@@ -106,9 +107,13 @@ class AutoActions(tkinter.Frame):
             if((x < active_window_left)):
                 # If Miku is too far left, move her to the right
                 self.reference.geometry(f"+{x + self.WALKING_VELOCITY}+{self.reference.winfo_y()}")
+                self.reference.change_animation(1)
             elif((x > active_window_right)):
                 # If Miku is too far right, move her to the left
                 self.reference.geometry(f"+{x - self.WALKING_VELOCITY}+{self.reference.winfo_y()}")
-
+                self.reference.change_animation(8)
+            else:
+                # If Miku is in the center of the active window, stop moving
+                self.reference.change_animation(0)
 
         self.reference.after(self.MILLISECONDS, self.move_in_x)

@@ -20,9 +20,10 @@ class AppUI(tkinter.Tk):
                   "./assets/miku_sprite_sheet_5.png",
                   "./assets/miku_sprite_sheet_6.png",
                   "./assets/miku_sprite_sheet_7.png",
+                  "./assets/miku_sprite_sheet_8.png",
                   ]
 
-        SPRITE_NUMBER_OF_FRAMES = [20, 8, 9, 8, 5, 3, 12]
+        SPRITE_NUMBER_OF_FRAMES = [20, 8, 8, 8, 5, 3, 12, 9]
 
         self.sprite = Animation(IMAGE_PATH, SPRITE_NUMBER_OF_FRAMES)
         self.actions = Actions(self.sprite.canvas, self)
@@ -43,6 +44,13 @@ class AppUI(tkinter.Tk):
 
     def stop(self):
         self.quit()
+
+    def change_animation(self, animation:int = 0):
+        """
+        Change the current animation of the sprite.
+        :param animation: The index of the animation to change to.
+        """
+        self.sprite.animation_list = animation
 
 class AppBroadcast(AppUI):
     def __init__(self):
