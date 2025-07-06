@@ -70,6 +70,10 @@ class AppBroadcast(AppUI):
                     self.running = False
                     self.broadcast("Goodbye~!! 💕👋.")
                     self.stop()
+                elif command.lower() == 'miku hello' or command.lower() == 'hello':
+                    self.broadcast("Hello~!! 💕")
+                elif command.lower() == 'how are you' or command.lower() == 'how are you?' or command.lower() == 'miku how are you':
+                    self.broadcast("I am fine, thank you~!! 💕")
                 else:
                     self.broadcast("I do not understand you~ 🥺")
             except EOFError as e:
