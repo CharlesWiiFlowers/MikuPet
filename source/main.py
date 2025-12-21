@@ -1,11 +1,17 @@
 import os
 import tkinter
 import threading
+from typing import TypedDict
 import warnings
+import json
 from mod.sprites import Animation
 from mod.actions import Actions
 from mod.actions import AutoActions
 
+settings:dict = {}
+
+class Setting(TypedDict):
+    selected_character:str
 
 class AppUI(tkinter.Tk):
 
@@ -13,8 +19,12 @@ class AppUI(tkinter.Tk):
         # Initialize the main window
         super().__init__()
         
+        CHARACTER_FOLDER:list[str] = [item for item in os.listdir("./assets/") if "." not in item]
+
+        
+
         # Get all items on list dir
-        IMAGE_PATH = [item for item in os.listdir("./assets/") if ".png" in item]
+        IMAGE_PATH:list[str] = [item for item in os.listdir(f"./assets/") if ".png" in item]
 
         SPRITE_NUMBER_OF_FRAMES = [20, 8, 8, 8, 5, 3, 12, 9]
 
@@ -76,11 +86,22 @@ class AppBroadcast(AppUI):
     def broadcast(self, text:str):
         print(f"Miku: {text}")
 
+    def global_broadcast(self, text:str):
+        print(f"[SYSTEM]: {text}")
+
     def run(self):
         # This thread can be used for broadcasting messages or handling background tasks
         pass
 
 if __name__ == "__main__":
+    # Load Settings
+    try:
+        with open("settings.json", "r", encoding="utf-8") as file:
+            settings = json.load(file)
+
+        AppBroadcast().global_broadcast(f"Loaded SETTINGS: \n{settings}")
+    except:
+        warnings.warn(f"[ERROR] Settings not found. Please generate a setting file.", UserWarning)
+
     # Start the program
     AppBroadcast().listen_to_console()
-    #AppUI().mainloop()
