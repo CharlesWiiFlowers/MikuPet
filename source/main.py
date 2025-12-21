@@ -1,3 +1,4 @@
+import os
 import tkinter
 import threading
 import warnings
@@ -11,17 +12,9 @@ class AppUI(tkinter.Tk):
     def __init__(self):
         # Initialize the main window
         super().__init__()
-
-        IMAGE_PATH = [
-                  "./assets/miku_sprite_sheet_1.png",
-                  "./assets/miku_sprite_sheet_2.png",
-                  "./assets/miku_sprite_sheet_3.png",
-                  "./assets/miku_sprite_sheet_4.png",
-                  "./assets/miku_sprite_sheet_5.png",
-                  "./assets/miku_sprite_sheet_6.png",
-                  "./assets/miku_sprite_sheet_7.png",
-                  "./assets/miku_sprite_sheet_8.png",
-                  ]
+        
+        # Get all items on list dir
+        IMAGE_PATH = [item for item in os.listdir("./assets/") if ".png" in item]
 
         SPRITE_NUMBER_OF_FRAMES = [20, 8, 8, 8, 5, 3, 12, 9]
 

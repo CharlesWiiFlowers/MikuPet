@@ -1,6 +1,6 @@
 import tkinter
 import warnings
-from PIL import Image, ImageTk
+#from PIL import Image, ImageTk
 
 class Sprite():
     def __init__(self, image_path:list[str], sprite_number_of, initial_x = 76, initial_y = 100, animation_speed:int = 100, background_color:str = "#96C8FA"):
