@@ -8,8 +8,6 @@ from mod.sprites import Animation
 from mod.actions import Actions
 from mod.actions import AutoActions
 
-settings:dict = {}
-
 class Setting(TypedDict):
     selected_character:str
 
@@ -21,7 +19,10 @@ class AppUI(tkinter.Tk):
         
         CHARACTER_FOLDER:list[str] = [item for item in os.listdir("./assets/") if "." not in item]
 
-        
+        character_selected = settings["selected_character"]
+        if settings["selected_character"] not in CHARACTER_FOLDER:
+            warnings.warn("[SYSTEM] Warning, selected character not found. Loading default.")
+            character_selected = "miku"
 
         # Get all items on list dir
         IMAGE_PATH:list[str] = [item for item in os.listdir(f"./assets/") if ".png" in item]
@@ -97,7 +98,7 @@ if __name__ == "__main__":
     # Load Settings
     try:
         with open("settings.json", "r", encoding="utf-8") as file:
-            settings = json.load(file)
+            settings: Setting = json.load(file)
 
         AppBroadcast().global_broadcast(f"Loaded SETTINGS: \n{settings}")
     except:
