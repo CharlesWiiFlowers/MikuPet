@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """This gonna be a hell to make again
         Days trying to make: infinity
         I always give up but I'll do"""
@@ -60,3 +61,6 @@ class AppUI(tkinter.Tk):
         """
         self.sprite.animation_list = animation
 
+=======
+"""This gonna be a hell to make again"""
+>>>>>>> e7ebe8a ([🐳] Commit: Minor change)
