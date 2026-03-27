@@ -62,6 +62,7 @@ class AppUI(tkinter.Tk):
         """
         self.sprite.animation_list = animation
 
+<<<<<<< HEAD
 =======
 """This gonna be a hell to make again"""
 >>>>>>> e7ebe8a ([🐳] Commit: Minor change)
@@ -70,3 +71,5 @@ class AppUI(tkinter.Tk):
         Days trying to make: infinity
         I always give up but I'll do"""
 >>>>>>> 5fc6a60 ([🎶] Commit: Minor changes)
+=======
+>>>>>>> 408ff61 ([🐳] Commit: Updating...)
