@@ -2,6 +2,10 @@ import tkinter
 import warnings
 #from PIL import Image, ImageTk
 
+class GetSprite():
+    def __init__(self) -> None:
+        pass
+
 class Sprite():
     def __init__(self, image_path:list[str], sprite_number_of, initial_x = 76, initial_y = 100, animation_speed:int = 100, background_color:str = "#96C8FA"):
         self.IMAGE_PATH = image_path
