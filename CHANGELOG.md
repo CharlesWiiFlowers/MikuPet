@@ -6,16 +6,17 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Logger system
-- Event system
+- Logger system (Internal function)
+- Event system (Internal function)
+- Engine system (Internal function)
 
 ### Changed
 
-- Internal function of app
+- Internal function of app (Every file)
 
 ### Fixed
 
--
+- Fixed a critical error that cause MikuPet didn't work
 
 ---
 
