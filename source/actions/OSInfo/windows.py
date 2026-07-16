@@ -1,5 +1,5 @@
 """
-Get system information to help Miku understand the environment she is running in.
+Get information about the active window on Windows.
 """
 
 import ctypes
