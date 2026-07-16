@@ -15,7 +15,7 @@ class Logger():
             callback=self.write_log
         )
 
-        self.project_root = Path(__file__).resolve().parent.parent
+        self.project_root = Path(__file__).resolve().parent.parent.parent
         self.log_dir = self.project_root / "data"
         self.log_file = self.log_dir / "events.log"
         self.log_long_file = self.log_dir / "detailed_events.log"
