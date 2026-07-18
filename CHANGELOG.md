@@ -13,6 +13,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Internal function of app (Every file)
+- How walk works internally
+- How gravity works internally
 
 ### Fixed
 
