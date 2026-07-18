@@ -1,7 +1,7 @@
 """
 General settings for MikuPet. This file is used to store user preferences and configurations.
 """
-from core.events.event_types import EVENT_CONFIG_LOADED
+from core.events.event_types import EVENT_CONFIG_LOADED, EVENT_ERROR
 from core.events.event_bus import EventBus
 from pathlib import Path
 import json
@@ -34,6 +34,12 @@ class Config:
             except (json.JSONDecodeError, OSError):
                 self.data = self.DEFAULT_CONFIG.copy()
                 self.save()
+
+                self.bus.emit(
+                    event_name=EVENT_ERROR,
+                    source=self,
+                    data={"error": "Failed to load config. Using default settings."}
+                )
 
         self.bus.emit(
             event_name=EVENT_CONFIG_LOADED,
