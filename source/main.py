@@ -3,6 +3,7 @@ from core.config import Config
 from core.engine import Engine
 from systems.window_system import WindowSystem
 from actions.gravity import Gravity
+from actions.auto_walk import AutoWalk
 from utils.logger import Logger
 
 class Main():
@@ -19,6 +20,7 @@ class Main():
 
         # Initialize actions
         self.gravity = Gravity(bus=self.bus)
+        self.auto_walk = AutoWalk(bus=self.bus)
 
 if __name__ == "__main__":
     Main()
