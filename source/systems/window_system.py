@@ -12,6 +12,9 @@ class WindowSystem:
     def __init__(self, bus: EventBus):
         self.bus = bus
         self.os_name = platform.system()
+
+        self.previous_window_rect = 0
+        self.previous_window_rect_sides = (0,0,0,0)
         
         self.bus.on(event_types.ENGINE_PRE_UPDATE, self.check_window)
 
@@ -19,9 +22,13 @@ class WindowSystem:
         if self.os_name == "Windows":
             
             rect = get_active_window_rect(self.bus)
-            
-            self.bus.emit(
-                event_name=event_types.WINDOW_STATE_UPDATED,
-                data={'left': rect[0], 'top': rect[1], 'right': rect[2], 'bottom': rect[3]},
-                source=self
-            )
+
+            if rect[4] != self.previous_window_rect or rect[0:4] != self.previous_window_rect_sides:
+                self.previous_window_rect = rect[4]
+                self.previous_window_rect_sides = rect[0:4]
+
+                self.bus.emit(
+                    event_name=event_types.WINDOW_STATE_UPDATED,
+                    data={'left': rect[0], 'top': rect[1], 'right': rect[2], 'bottom': rect[3]},
+                    source=self
+                )

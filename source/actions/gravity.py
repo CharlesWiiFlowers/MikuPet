@@ -38,7 +38,10 @@ class Gravity():
         
         if self.position['y'] < self.current_window['bottom']:
             # Apply gravity
-            new_position_on_y: float = self.position['y'] + self.gravity_strength * 0.016  # Assuming 60 FPS, so delta time is ~0.016 seconds. TODO: Make this configurable
+            if self.position['y'] == 0: 
+                self.position['y'] = 1  # Set a small initial value to avoid zero multiplication
+
+            new_position_on_y: float = self.position['y'] + self.position['y'] * self.gravity_strength * 0.016  # Assuming 60 FPS, so delta time is ~0.016 seconds. TODO: Make this configurable
 
             if new_position_on_y > self.current_window['bottom']:
                 new_position_on_y = self.current_window['bottom']

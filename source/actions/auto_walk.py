@@ -34,16 +34,21 @@ class AutoWalk():
         if self.current_window is None:
             return  # No window information available yet
         
-        if self.position['x'] < self.current_window['right']:
-            # Apply auto walk
-            new_position_on_x: float = self.position['x'] + 5  # Move right by 5 units. TODO: Make this configurable
+        if self.position['x'] < self.current_window['right'] and self.position['x'] > self.current_window['left']:
+            return  # Character is within the window bounds, no need to auto walk
 
-            if new_position_on_x > self.current_window['right']:
-                new_position_on_x = self.current_window['right']
-        
+        # Apply auto walk
+
+        new_position_on_x: float = self.position['x'] + 5  # Move right by 5 units. TODO: Make this configurable
+
+        if new_position_on_x > self.current_window['right']:
+            new_position_on_x = self.current_window['right']
+    
         try:
-            self.bus.emit(EVENT_POSITION_CHANGED, data={'x': new_position_on_x, 'y': self.position['y']}) # pyright: ignore[reportPossiblyUnboundVariable]
+            self.bus.emit(EVENT_POSITION_CHANGED, data={'x': new_position_on_x, 'y': self.position['y']}, source=self) # pyright: ignore[reportPossiblyUnboundVariable]
+
         except Exception as e:
+
             self.bus.emit(EVENT_ERROR, data={'error': str(e)})
 
     def disable_auto_walk(self, event):
