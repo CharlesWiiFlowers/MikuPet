@@ -1,4 +1,7 @@
-# systems/window_system.py
+"""
+This module contains the WindowSystem class, which is responsible for managing window-related events and interactions within the application.
+"""
+
 from core.events.event_bus import EventBus
 from core.events import event_types
 import platform

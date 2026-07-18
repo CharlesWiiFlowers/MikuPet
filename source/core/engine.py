@@ -6,7 +6,7 @@ class Engine:
     def __init__(self, bus: EventBus):
         self.bus = bus
         self.running = False
-        self.fps = 60
+        self.fps = 60 # TODO: Make this configurable
         self.frame_time = 1.0 / self.fps
 
     def start(self):
