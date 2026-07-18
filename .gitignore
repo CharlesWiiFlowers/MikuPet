@@ -1,7 +1,8 @@
 # 🌎 - Specifically for this project - 🌎
-# *.docx
-# **/about.md
-# /./about.md
+settings.json
+config.json
+events.log
+detailed_events.log
 
 # 🐍 - Python - 🐍
 env/*

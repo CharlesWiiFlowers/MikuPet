@@ -22,5 +22,7 @@ class Main():
         self.gravity = Gravity(bus=self.bus)
         self.auto_walk = AutoWalk(bus=self.bus)
 
+        self.engine.start()
+
 if __name__ == "__main__":
     Main()
