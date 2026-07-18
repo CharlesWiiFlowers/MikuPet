@@ -15,3 +15,8 @@ ENGINE_RENDER = "engine_render"
 
 # System
 WINDOW_STATE_UPDATED = "window_updated"
+
+# Character
+EVENT_POSITION_CHANGED = "position_changed"
+EVENT_ON_FOCUS = "on_focus"
+EVENT_FOCUS_LOST = "on_focus_lost"
