@@ -7,6 +7,7 @@ EVENT_ERROR = "error_event"
 
 # Config
 EVENT_CONFIG_LOADED = "config_loaded"
+EVENT_CONFIG_UPDATE = "config_updated"
 
 # Engine
 ENGINE_PRE_UPDATE = "engine_pre_update"
