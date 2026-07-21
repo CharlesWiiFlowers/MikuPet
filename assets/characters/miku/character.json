@@ -1,0 +1,15 @@
+{
+    "name": "Hatsune Miku",
+    "scale": 1.0,
+    "version": "1.0",
+    "author": "BYP Studio and Chaim Videogames",
+    "animations": {
+        "idle": {
+            "file": "idle.png",
+            "metadata": "idle.json",
+            "frames": 20,
+            "fps": 8,
+            "loop": -1
+        }
+    }
+}
