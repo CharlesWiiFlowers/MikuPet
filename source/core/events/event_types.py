@@ -21,3 +21,7 @@ WINDOW_STATE_UPDATED = "window_updated"
 EVENT_POSITION_CHANGED = "position_changed"
 EVENT_ON_FOCUS = "on_focus"
 EVENT_FOCUS_LOST = "on_focus_lost"
+
+# Render
+EVENT_ASSET_LOADED = "asset_loaded"
+EVENT_METADATA_ASSET_LOADED = "metadata_asset_loaded"
