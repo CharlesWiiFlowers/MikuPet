@@ -1,6 +1,10 @@
 from core.events.event_bus import EventBus
 from core.config import Config
 from core.engine import Engine
+from render.animation import Animation
+from render.asset_loader import AssetLoader
+from render.renderer import Renderer
+from render.sprite import Sprite
 from systems.window_system import WindowSystem
 from actions.gravity import Gravity
 from actions.auto_walk import AutoWalk
@@ -22,6 +26,14 @@ class Main():
         self.gravity = Gravity(bus=self.bus)
         self.auto_walk = AutoWalk(bus=self.bus)
 
+        # Initialize Render
+        self.asset_loader = AssetLoader(bus=self.bus)
+        self.sprite = Sprite(bus=self.bus)
+        self.animation = Animation(bus=self.bus, sprite=self.sprite)
+        self.render = Renderer(bus=self.bus)
+
+        self.asset_loader.load_character_assets()
+        self.config.load()
         self.engine.start()
 
 if __name__ == "__main__":

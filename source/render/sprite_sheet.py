@@ -1,8 +1,8 @@
 import json
 from tkinter import PhotoImage
 
-from source.core.events.event_types import EVENT_ERROR, EVENT_METADATA_ASSET_LOADED
-from source.core.events.event_bus import EventBus
+from core.events.event_types import EVENT_ERROR, EVENT_METADATA_ASSET_LOADED
+from core.events.event_bus import EventBus
 
 class SpriteSheet:
     def __init__(self, bus:EventBus, image_path:str, metadata_path:str):
@@ -26,36 +26,45 @@ class SpriteSheet:
 
         self.frames = []
 
-        _split(self=self)
+        self._split()
 
-def _split(self):
-    """
-    Split the spritesheet into individual frames using LibreSprite metadata.
-    """
+    def get_frames(self):
+        self._split() # Ensure the frame is loaded
 
-    for frame_data in self.metadata["frames"].values():
+        return self.frames
 
-        frame = frame_data["frame"]
+    def _split(self):
+        """
+        Split the spritesheet into individual frames using LibreSprite metadata.
+        """
 
-        x = frame["x"]
-        y = frame["y"]
-        w = frame["w"]
-        h = frame["h"]
+        if self.metadata == None: return
 
-        sprite = PhotoImage(width=w, height=h)
+        self.frames = []
 
-        sprite.tk.call(
-            sprite,
-            "copy",
-            self.sheet,
-            "-from",
-            x,
-            y,
-            x + w,
-            y + h,
-            "-to",
-            0,
-            0
-        )
+        for frame_data in self.metadata["frames"].values():
 
-        self.frames.append(sprite)
+            frame = frame_data["frame"]
+
+            x = frame["x"]
+            y = frame["y"]
+            w = frame["w"]
+            h = frame["h"]
+
+            sprite = PhotoImage(width=w, height=h)
+
+            sprite.tk.call(
+                sprite,
+                "copy",
+                self.frames,
+                "-from",
+                x,
+                y,
+                x + w,
+                y + h,
+                "-to",
+                0,
+                0
+            )
+
+            self.frames.append(sprite)

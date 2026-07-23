@@ -24,7 +24,8 @@ class AssetLoader:
             )
             return
 
-        selected_character = self.config.get("selected_character", "miku")
+        
+        selected_character = self.config
         general_sprite_path = f"assets/characters/{selected_character}"
         character_path = f"{general_sprite_path}/character.json"
 
@@ -32,7 +33,22 @@ class AssetLoader:
             with open(character_path, "r", encoding="utf-8") as f:
                 character_data = json.load(f)
 
+                self.bus.emit(
+                    event_name=EVENT_METADATA_ASSET_LOADED,
+                    source=self,
+                    data=character_data
+                )
+
+
+                # TODO: Add a default texture to use as placeholder for missing animations
                 self._load_animations(general_sprite_path, character_data)
+
+                self.bus.emit(
+                    event_name=EVENT_ASSET_LOADED,
+                    source=self,
+                    data=self.sheet
+                )
+
                 
         except (FileNotFoundError, json.JSONDecodeError) as e:
             self.bus.emit(
@@ -48,3 +64,5 @@ class AssetLoader:
 
     def _on_config_loaded(self, event):
         self.config = event.source
+
+        self.load_character_assets()
