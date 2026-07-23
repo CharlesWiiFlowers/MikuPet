@@ -19,6 +19,11 @@ class Sprite():
             callback=self._load_character_metadata
         )
 
+    def get_animation_fps(self, animation:str):
+        if self.character_metadata is None: return
+
+        return self.character_metadata["animations"][animation]["fps"]
+
     def _load_animation_assets(self, event):
         self.sprites = event.data
 

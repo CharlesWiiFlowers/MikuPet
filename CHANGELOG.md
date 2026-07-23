@@ -9,10 +9,12 @@ All notable changes to this project will be documented in this file.
 - Logger system (Internal function)
 - Event system (Internal function)
 - Engine system (Internal function)
+- Configurable FPS system
 
 ### Changed
 
 - Internal function of app (Every file)
+- Internal render system
 - How walk works internally
 - How gravity works internally
 
