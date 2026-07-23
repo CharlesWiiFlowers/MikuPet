@@ -7,8 +7,9 @@
         "idle": {
             "file": "idle.png",
             "metadata": "idle.json",
-            "fps": 8,
-            "loop": -1
+            "fps": 9,
+            "loop": -1,
+            "padding": [10, 10]
         }
     }
 }
