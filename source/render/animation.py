@@ -1,5 +1,5 @@
 from core.events.event_bus import EventBus
-from core.events.event_types import EVENT_CHARACTER_ANIMATION_CHANGED, EVENT_ASSET_LOADED, ENGINE_RENDER
+from core.events.event_types import EVENT_CHARACTER_ANIMATION_CHANGED, EVENT_ASSET_LOADED, ENGINE_RENDER, EVENT_SPRITE_FRAME_CHANGED
 from render.sprite import Sprite
 from render.sprite_sheet import SpriteSheet
 
@@ -39,7 +39,7 @@ class Animation():
     def change_character_animation(self, event):
         self.current_animation = event.data
 
-        self._load_assets()
+        
 
     def _load_vector_frame(self):
         if self.animations == {}:
@@ -51,10 +51,21 @@ class Animation():
          if self.current_animation_vector != []:
             self.current_animation_frame = self.current_animation_frame + 1 if (len(self.current_animation_vector) -1 > self.current_animation_frame) else 0
 
+
+
     def _load_assets(self,event):
         self.animations: dict[str, SpriteSheet] = event.data
+
+        self._load_vector_frame()
 
     def _tick(self, event):
             self.frame += 1
 
             self._continue_frame_animation()
+
+            if self.current_animation_vector:
+                self.bus.emit(
+                event_name=EVENT_SPRITE_FRAME_CHANGED,
+                source=self,
+                data=self.current_animation_vector[self.current_animation_frame]
+            )

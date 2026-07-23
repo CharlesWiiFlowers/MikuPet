@@ -56,7 +56,7 @@ class SpriteSheet:
             sprite.tk.call(
                 sprite,
                 "copy",
-                self.frames,
+                self.image,
                 "-from",
                 x,
                 y,

@@ -19,26 +19,17 @@ class Renderer:
         self.root.overrideredirect(True)
         self.root.attributes("-topmost", True)
 
-        self.root.configure(
-            bg="#96C8FA"
-        )
-
-        self.root.wm_attributes(
-            "-transparentcolor",
-            "#96C8FA"
-        )
-
+        self.root.configure(bg="#96C8FA")
+        self.root.wm_attributes("-transparentcolor", "#96C8FA")
 
         self.canvas = tk.Canvas(
             self.root,
             bg="#96C8FA",
             highlightthickness=0
         )
-
         self.canvas.pack()
 
-
-        self.image = None
+        self.current_frame = None
 
         self.sprite_id = self.canvas.create_image(
             0,
@@ -46,16 +37,13 @@ class Renderer:
             anchor=tk.NW
         )
 
-
         self.x = 0
         self.y = 0
-
 
         self.bus.on(
             EVENT_POSITION_CHANGED,
             self._on_position_changed
         )
-
 
         self.bus.on(
             EVENT_SPRITE_FRAME_CHANGED,
@@ -67,27 +55,38 @@ class Renderer:
             self._on_render
         )
 
-
-    def _on_render(self, event):
-
-        self.root.update_idletasks()
-        self.root.update()
-
     def _on_position_changed(self, event):
 
         self.x = event.data["x"]
         self.y = event.data["y"]
 
-        self.root.geometry(
-            f"+{self.x}+{self.y}"
-        )
-
-
     def _on_sprite_changed(self, event):
 
-        self.image = event.data
+        self.current_frame = event.data
+
+    def _on_render(self, event):
+
+        if self.current_frame is None:
+            return
 
         self.canvas.itemconfig(
             self.sprite_id,
-            image=self.image
+            image=self.current_frame
         )
+
+        width = self.current_frame.width()
+        height = self.current_frame.height()
+
+        self.canvas.config(
+            width=width,
+            height=height
+        )
+
+        self.root.geometry(
+            f"{int(width)}x{int(height)}+{int(self.x)}+{int(self.y)}"
+        )
+
+        try:
+            self.root.update()
+        except tk.TclError:
+            pass

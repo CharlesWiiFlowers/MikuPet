@@ -32,7 +32,6 @@ class Main():
         self.animation = Animation(bus=self.bus, sprite=self.sprite)
         self.render = Renderer(bus=self.bus)
 
-        self.asset_loader.load_character_assets()
         self.config.load()
         self.engine.start()
 
