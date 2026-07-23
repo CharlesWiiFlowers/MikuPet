@@ -5,12 +5,25 @@ from core.events import event_types
 class Engine:
     def __init__(self, bus: EventBus):
         self.bus = bus
+        self.config = {}
         self.running = False
-        self.fps = 60 # TODO: Make this configurable
+        self.fps = 60
         self.frame_time = 1.0 / self.fps
+
+        self.bus.on(
+            event_types.EVENT_CONFIG_LOADED,
+            callback=self._load_config
+        )
+
+        self.bus.on(
+            event_types.EVENT_CONFIG_UPDATE,
+            self._update_config
+        )
 
     def start(self):
         self.running = True
+
+        self.fps = self.config["fps"]
         
         while self.running:
             start_time = time.time()
@@ -29,3 +42,9 @@ class Engine:
             sleep_time = self.frame_time - elapsed
             if sleep_time > 0:
                 time.sleep(sleep_time)
+
+    def _load_config(self, event):
+        self.config = event.source
+
+    def _update_config(self, event):
+        self._load_config(event=event)
