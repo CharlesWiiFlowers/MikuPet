@@ -7,4 +7,4 @@ class Event():
     event_type: str
     data: Any
     timestamp: datetime
-    source: str | None
+    source: object

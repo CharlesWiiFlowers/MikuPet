@@ -61,7 +61,7 @@ class EventBus:
             event_type=event_name,
             data=data,
             timestamp=datetime.now(),
-            source=source.__class__.__name__
+            source=source
         )
 
         for callback in self.listeners[event_name]:
