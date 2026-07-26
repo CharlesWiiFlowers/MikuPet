@@ -1,5 +1,5 @@
 from core.events.event_bus import EventBus
-from core.events.event_types import EVENT_CHARACTER_ANIMATION_CHANGED, EVENT_ASSET_LOADED, ENGINE_RENDER, EVENT_SPRITE_FRAME_CHANGED, EVENT_CONFIG_LOADED
+from core.events.event_types import EVENT_CHARACTER_ANIMATION_CHANGED, EVENT_ASSET_LOADED, ENGINE_RENDER, EVENT_SPRITE_FRAME_CHANGED, EVENT_CONFIG_LOADED, EVENT_ON_PADDING_CHANGE
 from render.sprite import Sprite
 from render.sprite_sheet import SpriteSheet
 
@@ -24,6 +24,8 @@ class Animation():
         self.delta_time = 0.1666
 
         self.animation_timer = 0
+
+        self.animation_padding = [10, 10]
 
         self.bus.on(
             EVENT_CONFIG_LOADED,
@@ -65,16 +67,32 @@ class Animation():
          if self.current_animation_vector != []:
             self.current_animation_frame = self.current_animation_frame + 1 if (len(self.current_animation_vector) -1 > self.current_animation_frame) else 0
 
-
-
     def _load_assets(self,event):
         self.animations: dict[str, SpriteSheet] = event.data
 
         self._load_vector_frame()
 
+    def _verify_padding(self):
+        x, y = self.character.get_padding(self.current_animation)
+
+        if [x,y] == self.animation_padding: return
+
+        self.animation_padding = [x,y]
+
+        self.bus.emit(
+            EVENT_ON_PADDING_CHANGE,
+            self.animation_padding,
+            self
+        )
+
     def _tick(self, event):
+
+            # Engine
             self.frame += 1
 
+            self._verify_padding()
+
+            # Animation
             self.animation_timer += self.delta_time
 
             animation_fps = 1/8 if self.character.get_animation_fps(self.current_animation) is None else (1 / self.character.get_animation_fps(self.current_animation)) # type: ignore

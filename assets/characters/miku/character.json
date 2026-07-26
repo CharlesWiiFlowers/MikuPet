@@ -9,7 +9,7 @@
             "metadata": "idle.json",
             "fps": 9,
             "loop": -1,
-            "padding": [10, 10]
+            "padding": [8, 5]
         }
     }
 }

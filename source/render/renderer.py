@@ -4,6 +4,7 @@ from core.events.event_bus import EventBus
 from core.events.event_types import (
     EVENT_POSITION_CHANGED,
     EVENT_SPRITE_FRAME_CHANGED,
+    EVENT_ON_PADDING_CHANGE,
     ENGINE_RENDER
 )
 
@@ -15,6 +16,8 @@ class Renderer:
         self.bus = bus
 
         self.root = tk.Tk()
+
+        self.frame_padding = [10, 10]
 
         self.root.overrideredirect(True)
         self.root.attributes("-topmost", True)
@@ -55,6 +58,14 @@ class Renderer:
             self._on_render
         )
 
+        self.bus.on(
+            EVENT_ON_PADDING_CHANGE,
+            self._on_padding_changed
+        )
+
+    def _on_padding_changed(self, event):
+        self.frame_padding = event.data
+
     def _on_position_changed(self, event):
 
         self.x = event.data["x"]
@@ -82,8 +93,11 @@ class Renderer:
             height=height
         )
 
+        # self.frame_padding[0]
+        # self.frame_padding[1]
+
         self.root.geometry(
-            f"{int(width)}x{int(height)}+{int(self.x)}+{int(self.y)}"
+            f"{int(width)}x{int(height)}+{int(self.x+self.frame_padding[0])}+{int(self.y-self.frame_padding[1])}"
         )
 
         try:

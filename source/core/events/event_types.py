@@ -17,7 +17,7 @@ ENGINE_RENDER = "engine_render"
 # System
 WINDOW_STATE_UPDATED = "window_updated"
 
-# Characterehh
+# Character
 EVENT_POSITION_CHANGED = "position_changed"
 EVENT_ON_FOCUS = "on_focus"
 EVENT_FOCUS_LOST = "on_focus_lost"
@@ -27,3 +27,4 @@ EVENT_ASSET_LOADED = "asset_loaded"
 EVENT_METADATA_ASSET_LOADED = "metadata_asset_loaded"
 EVENT_CHARACTER_ANIMATION_CHANGED = "character_animation_changed"
 EVENT_SPRITE_FRAME_CHANGED = "sprite_frame_changed"
+EVENT_ON_PADDING_CHANGE = "character_padding_change"
