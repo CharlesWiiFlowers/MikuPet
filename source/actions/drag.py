@@ -1,9 +1,11 @@
 from core.events.event_bus import EventBus
-from core.events.event_types import EVENT_DRAG, EVENT_POSITION_CHANGED
+from core.events.event_types import EVENT_DRAG
+from core.character import Character
 
 class DragSystem():
-    def __init__(self, bus: EventBus) -> None:
+    def __init__(self, bus: EventBus, character: Character) -> None:
         self.bus = bus
+        self.character = character
 
         self.bus.on(
             EVENT_DRAG,
@@ -15,12 +17,5 @@ class DragSystem():
         x = event.data["mouse_x"] - event.data["offset_x"]
         y = event.data["mouse_y"] - event.data["offset_y"]
 
-        self.bus.emit(
-            EVENT_POSITION_CHANGED,
-            {
-                "x": x,
-                "y": y
-            },
-            self
-        )
+        self.character = {"x": x, "y": y}
 

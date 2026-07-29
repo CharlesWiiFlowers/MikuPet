@@ -5,7 +5,7 @@ Logs System
 from pathlib import Path
 
 from core.events.event_bus import EventBus
-from core.events.event_types import EVENT_ERROR, ENGINE_PRE_UPDATE, ENGINE_UPDATE, ENGINE_RENDER, EVENT_POSITION_CHANGED, WINDOW_STATE_UPDATED, EVENT_SPRITE_FRAME_CHANGED
+from core.events.event_types import EVENT_ERROR, ENGINE_PRE_UPDATE, ENGINE_UPDATE, ENGINE_RENDER, WINDOW_STATE_UPDATED, EVENT_SPRITE_FRAME_CHANGED
 from core.events.events import Event
 
 class Logger():
@@ -28,7 +28,7 @@ class Logger():
     def write_log(self, event:Event):
 
         # TODO: Add a blacklist
-        if not self.enable_engine_logs and event.event_type in [ENGINE_PRE_UPDATE, ENGINE_UPDATE, ENGINE_RENDER, WINDOW_STATE_UPDATED, EVENT_SPRITE_FRAME_CHANGED, EVENT_POSITION_CHANGED]:
+        if not self.enable_engine_logs and event.event_type in [ENGINE_PRE_UPDATE, ENGINE_UPDATE, ENGINE_RENDER, WINDOW_STATE_UPDATED, EVENT_SPRITE_FRAME_CHANGED]:
             return  # Skip logging for engine events if disabled
 
         with open(self.log_file, "a+", encoding="utf-8") as file:

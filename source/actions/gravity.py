@@ -1,13 +1,13 @@
 from core.events.event_bus import EventBus
-from core.events.event_types import ENGINE_UPDATE, WINDOW_STATE_UPDATED, EVENT_POSITION_CHANGED, EVENT_ON_FOCUS, EVENT_FOCUS_LOST, EVENT_ERROR
+from core.events.event_types import ENGINE_UPDATE, WINDOW_STATE_UPDATED, EVENT_ON_FOCUS, EVENT_FOCUS_LOST, EVENT_ERROR
+from core.character import Character
 
 class Gravity():
-    def __init__(self, bus:EventBus):
+    def __init__(self, bus:EventBus, character: Character):
         self.bus = bus
+        self.character = character
 
         self.current_window = None
-
-        self.position = {'x': 0, 'y': 0}  # Initial character position
 
         self.gravity_strength = 10  # Default gravity strength in m/s^2
 
@@ -15,8 +15,6 @@ class Gravity():
 
         # Register event listeners
         self.bus.on(ENGINE_UPDATE, self.apply_gravity)
-
-        self.bus.on(EVENT_POSITION_CHANGED, self.character_position)
 
         self.bus.on(WINDOW_STATE_UPDATED, self.update_window_state)
 
@@ -36,20 +34,21 @@ class Gravity():
         if self.current_window is None:
             return  # No window information available yet
         
-        if self.position['y'] < self.current_window['bottom']:
+        if self.character.position["y"] < self.current_window['bottom']:
             ground = self.current_window["bottom"] - 100 # TODO: Adapt to real height of sprites
 
             # Apply gravity
-            if self.position['y'] == 0: 
-                self.position['y'] = 1  # Set a small initial value to avoid zero multiplication
+            if self.character.position["y"] == 0: 
+                self.character.position["y"] = 1  # Set a small initial value to avoid zero multiplication
 
-            new_position_on_y: float = self.position['y'] + self.gravity_strength #TODO: Make this configurable
+            new_position_on_y: float = self.character.position["y"] + self.gravity_strength #TODO: Make this configurable
 
             if new_position_on_y > ground:
                 new_position_on_y = ground
         
             try:
-                self.bus.emit(EVENT_POSITION_CHANGED, data={'x': self.position['x'], 'y': new_position_on_y}) # pyright: ignore[reportPossiblyUnboundVariable]
+                self.character.position["y"] = float(new_position_on_y)
+
             except Exception as e:
                 self.bus.emit(EVENT_ERROR, data={'error': str(e)})
 

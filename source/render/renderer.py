@@ -1,8 +1,8 @@
 import tkinter as tk
 
+from core.character import Character
 from core.events.event_bus import EventBus
 from core.events.event_types import (
-    EVENT_POSITION_CHANGED,
     EVENT_SPRITE_FRAME_CHANGED,
     EVENT_ON_PADDING_CHANGE,
     ENGINE_RENDER,
@@ -11,12 +11,12 @@ from core.events.event_types import (
     EVENT_DRAG
 )
 
-
 class Renderer:
 
-    def __init__(self, bus: EventBus):
+    def __init__(self, bus: EventBus, character: Character):
 
         self.bus = bus
+        self.character = character
 
         self.root = tk.Tk()
 
@@ -45,18 +45,10 @@ class Renderer:
             anchor=tk.NW
         )
 
-        self.x = 0
-        self.y = 0
-
         # Render events
         #self.canvas.bind("<ButtonPress-1>", self._on_mouse_press)
         #self.canvas.bind("<ButtonRelease-1>", self._on_mouse_release)
         #self.canvas.bind("<B1-Motion>", self._on_drag)
-
-        self.bus.on(
-            EVENT_POSITION_CHANGED,
-            self._on_position_changed
-        )
 
         self.bus.on(
             EVENT_SPRITE_FRAME_CHANGED,
@@ -113,11 +105,6 @@ class Renderer:
     def _on_padding_changed(self, event):
         self.frame_padding = event.data
 
-    def _on_position_changed(self, event):
-
-        self.x = event.data["x"]
-        self.y = event.data["y"]
-
     def _on_sprite_changed(self, event):
 
         self.current_frame = event.data
@@ -144,7 +131,7 @@ class Renderer:
         # self.frame_padding[1]
 
         self.root.geometry(
-            f"{int(width)}x{int(height)}+{int(self.x+self.frame_padding[0])}+{int(self.y-self.frame_padding[1])}"
+            f"{int(width)}x{int(height)}+{int(self.character.position["x"]+self.frame_padding[0])}+{int(self.character.position["y"]-self.frame_padding[1])}"
         )
 
         try:
