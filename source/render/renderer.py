@@ -5,7 +5,10 @@ from core.events.event_types import (
     EVENT_POSITION_CHANGED,
     EVENT_SPRITE_FRAME_CHANGED,
     EVENT_ON_PADDING_CHANGE,
-    ENGINE_RENDER
+    ENGINE_RENDER,
+    EVENT_ON_FOCUS,
+    EVENT_FOCUS_LOST,
+    EVENT_DRAG
 )
 
 
@@ -18,6 +21,8 @@ class Renderer:
         self.root = tk.Tk()
 
         self.frame_padding = [10, 10]
+
+        self.has_focus = False
 
         self.root.overrideredirect(True)
         self.root.attributes("-topmost", True)
@@ -43,6 +48,11 @@ class Renderer:
         self.x = 0
         self.y = 0
 
+        # Render events
+        #self.canvas.bind("<ButtonPress-1>", self._on_mouse_press)
+        #self.canvas.bind("<ButtonRelease-1>", self._on_mouse_release)
+        #self.canvas.bind("<B1-Motion>", self._on_drag)
+
         self.bus.on(
             EVENT_POSITION_CHANGED,
             self._on_position_changed
@@ -62,6 +72,43 @@ class Renderer:
             EVENT_ON_PADDING_CHANGE,
             self._on_padding_changed
         )
+
+    def _on_mouse_press(self, event):
+        self.drag_offset_x = event.x
+        self.drag_offset_y = event.y
+
+        if not self.has_focus:
+            self.has_focus = True
+
+            self.bus.emit(
+                EVENT_ON_FOCUS,
+                source=self
+            )
+
+    def _on_mouse_release(self, event):
+        if self.has_focus:
+            self.has_focus = False
+
+            self.bus.emit(
+                EVENT_FOCUS_LOST,
+                source=self
+            )
+
+    def _on_drag(self, event):
+
+       mouse_x = self.root.winfo_pointerx()
+       mouse_y = self.root.winfo_pointery()
+
+       self.bus.emit(
+           EVENT_DRAG,
+           data={
+               "mouse_x": mouse_x,
+               "mouse_y": mouse_y,
+               "offset_x": self.drag_offset_x,
+               "offset_y": self.drag_offset_y
+           }
+       )
+
 
     def _on_padding_changed(self, event):
         self.frame_padding = event.data

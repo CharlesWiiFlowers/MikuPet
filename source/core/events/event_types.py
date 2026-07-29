@@ -21,6 +21,10 @@ WINDOW_STATE_UPDATED = "window_updated"
 EVENT_POSITION_CHANGED = "position_changed"
 EVENT_ON_FOCUS = "on_focus"
 EVENT_FOCUS_LOST = "on_focus_lost"
+EVENT_DRAG = "on_drag_by_mouse"
+EVENT_WALKING_RIGHT = "walking_right"
+EVENT_WALKING_LEFT = "walking_left"
+EVENT_STOP_WALKING = "stop_walking"
 
 # Render
 EVENT_ASSET_LOADED = "asset_loaded"
