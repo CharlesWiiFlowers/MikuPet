@@ -44,6 +44,8 @@ class Renderer:
         # Render events
         #self.canvas.bind("<ButtonPress-1>", self._on_mouse_press)
         #self.canvas.bind("<ButtonRelease-1>", self._on_mouse_release)
+        self.root.bind("<FocusIn>", self._handle_focus_in)  # Stop gravity when the canvas gets focus, i know this is counterintuitive
+        self.root.bind("<FocusOut>", self._handle_focus_out)
         #self.canvas.bind("<B1-Motion>", self._on_drag)
 
         self.bus.on(
@@ -60,6 +62,12 @@ class Renderer:
             EVENT_ON_PADDING_CHANGE,
             self._on_padding_changed
         )
+
+    def _handle_focus_in(self, event):
+        self.character.has_focus = True
+
+    def _handle_focus_out(self, event):
+        self.character.has_focus = False
 
     def _on_mouse_press(self, event):
         self.drag_offset_x = event.x
