@@ -29,22 +29,25 @@ class AutoWalk():
         
         if self.current_window is None:
             return  # No window information available yet
+
+        if (
+            self.current_window["left"]
+            <= self.character.position["x"]
+            <= self.current_window["right"] - (self.character.width + 8) # TODO: Make this configurable. Replace 10 with renderer horizontal padding once exposed.
+            ):
+                self._emit_character_walking_animation_event_bus(isWalking=False)
+                return # Character is within the window bounds, no need to auto walk
         
-        if self.character.position["x"] < self.current_window['right'] and self.character.position["x"] > self.current_window['left']:
-            self._emit_character_walking_animation_event_bus(isWalking=False)
-
-            return  # Character is within the window bounds, no need to auto walk
-
         # Apply auto walk
         new_position_on_x:float = self.character.position["x"]
 
         if self.character.position["x"] < self.current_window["left"]:
-            new_position_on_x = min(self.character.position["x"] + 5, self.current_window["left"])  # Move right by 5 units. TODO: Make this configurable
+            new_position_on_x = self.character.position["x"] + 5  # Move right by 5 units. TODO: Make this configurable
 
             self._emit_character_walking_animation_event_bus()
 
-        if self.character.position["x"] > self.current_window["right"]:
-            new_position_on_x = max(self.character.position["x"] - 5, self.current_window["right"]) # TODO: Make this configurable
+        if self.character.position["x"] > self.current_window["right"] - (self.character.width):
+            new_position_on_x = self.character.position["x"] - 5 #, self.current_window["right"] - self.character.width) # TODO: Make this configurable
 
             self._emit_character_walking_animation_event_bus(isToRight=False)
 
