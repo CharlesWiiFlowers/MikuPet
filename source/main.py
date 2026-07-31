@@ -16,7 +16,7 @@ class Main():
 
         # Initialize core components
         self.bus = EventBus()
-        self.character = Character()
+        self.character = Character(bus=self.bus)
         self.config = Config(bus=self.bus)
         self.logger = Logger(bus=self.bus)
         self.engine = Engine(bus=self.bus)
