@@ -9,6 +9,7 @@ from render.sprite import Sprite
 from systems.window_system import WindowSystem
 from actions.gravity import Gravity
 from actions.auto_walk import AutoWalk
+from actions.drag import DragSystem
 from utils.logger import Logger
 
 class Main():
@@ -27,6 +28,7 @@ class Main():
         # Initialize actions
         self.gravity = Gravity(bus=self.bus, character=self.character)
         self.auto_walk = AutoWalk(bus=self.bus, character=self.character)
+        self.drag = DragSystem(bus=self.bus, character=self.character)
 
         # Initialize Render
         self.asset_loader = AssetLoader(bus=self.bus)

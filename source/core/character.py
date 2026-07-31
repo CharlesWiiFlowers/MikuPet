@@ -10,6 +10,7 @@ class Character():
         self.height = 0
 
         self.has_focus = False
+        self.is_dragging = False
 
         self.bus.on(
             EVENT_SPRITE_FRAME_CHANGED,

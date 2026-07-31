@@ -6,7 +6,8 @@ from core.events.event_types import (
     EVENT_SPRITE_FRAME_CHANGED,
     EVENT_ON_PADDING_CHANGE,
     ENGINE_RENDER,
-    EVENT_DRAG
+    EVENT_DRAG,
+    EVENT_DRAG_END
 )
 
 class Renderer:
@@ -19,6 +20,8 @@ class Renderer:
         self.root = tk.Tk()
 
         self.frame_padding = [10, 10]
+        self.drag_offset_x = 0
+        self.drag_offset_y = 0
 
         self.root.overrideredirect(True)
         self.root.attributes("-topmost", True)
@@ -42,11 +45,11 @@ class Renderer:
         )
 
         # Render events
-        #self.canvas.bind("<ButtonPress-1>", self._on_mouse_press)
-        #self.canvas.bind("<ButtonRelease-1>", self._on_mouse_release)
-        self.root.bind("<FocusIn>", self._handle_focus_in)  # Stop gravity when the canvas gets focus, i know this is counterintuitive
+        self.root.bind("<ButtonPress-1>", self._on_mouse_press)
+        self.root.bind("<ButtonRelease-1>", self._on_mouse_release)
+        self.root.bind("<FocusIn>", self._handle_focus_in)
         self.root.bind("<FocusOut>", self._handle_focus_out)
-        #self.canvas.bind("<B1-Motion>", self._on_drag)
+        self.root.bind("<Motion>", self._on_drag)
 
         self.bus.on(
             EVENT_SPRITE_FRAME_CHANGED,
@@ -73,17 +76,22 @@ class Renderer:
         self.drag_offset_x = event.x
         self.drag_offset_y = event.y
 
-        self.character.has_focus = True
+        self.character.is_dragging = True
 
     def _on_mouse_release(self, event):
+        self.bus.emit(EVENT_DRAG_END, source=self)
         self.character.has_focus = False
 
     def _on_drag(self, event):
 
-       mouse_x = self.root.winfo_pointerx()
-       mouse_y = self.root.winfo_pointery()
+        if self.character.has_focus == False: return
 
-       self.bus.emit(
+        self.character.is_dragging = True
+
+        mouse_x = self.root.winfo_pointerx()
+        mouse_y = self.root.winfo_pointery()
+
+        self.bus.emit(
            EVENT_DRAG,
            data={
                "mouse_x": mouse_x,
