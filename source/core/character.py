@@ -7,6 +7,7 @@ class Character():
 
         self.position: dict[str, float] = {"x": 0, "y": 0}
         self.width = 0
+        self.height = 0
 
         self.bus.on(
             EVENT_SPRITE_FRAME_CHANGED,
@@ -16,3 +17,4 @@ class Character():
 
     def _on_sprite_changed(self, event):
         self.width = event.data.width()
+        self.height = event.data.height()
