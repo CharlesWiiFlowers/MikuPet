@@ -1,5 +1,5 @@
 from core.events.event_bus import EventBus
-from core.events.event_types import ENGINE_UPDATE, WINDOW_STATE_UPDATED, EVENT_ON_FOCUS, EVENT_FOCUS_LOST, EVENT_ERROR
+from core.events.event_types import ENGINE_UPDATE, WINDOW_STATE_UPDATED, EVENT_ERROR
 from core.character import Character
 
 class Gravity():
@@ -14,19 +14,18 @@ class Gravity():
         self.enableGravity = True  # Flag to enable or disable gravity
 
         # Register event listeners
-        self.bus.on(ENGINE_UPDATE, self.apply_gravity)
+        self.bus.on(ENGINE_UPDATE, self.update)
 
-        self.bus.on(WINDOW_STATE_UPDATED, self.update_window_state)
+        self.bus.on(WINDOW_STATE_UPDATED, self._update_window_state)
 
-        self.bus.on(EVENT_ON_FOCUS, self.disable_gravity)
-                    
-        self.bus.on(EVENT_FOCUS_LOST, self.enable_gravity)
+    def update(self, event):
+        self._verify_focus()
+        self._apply_gravity()
 
-
-    def update_window_state(self, event):
+    def _update_window_state(self, event):
         self.current_window = event.data
 
-    def apply_gravity(self, event):
+    def _apply_gravity(self):
 
         if not self.enableGravity:
             return
@@ -52,11 +51,6 @@ class Gravity():
             except Exception as e:
                 self.bus.emit(EVENT_ERROR, data={'error': str(e)})
 
-    def disable_gravity(self, event):
-        self.enableGravity = False
 
-    def enable_gravity(self, event):
-        self.enableGravity = True
-
-    def character_position(self, event):
-        self.position = event.data
+    def _verify_focus(self):
+        self.enableGravity = not(self.character.has_focus)

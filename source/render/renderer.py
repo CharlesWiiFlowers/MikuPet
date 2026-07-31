@@ -6,8 +6,6 @@ from core.events.event_types import (
     EVENT_SPRITE_FRAME_CHANGED,
     EVENT_ON_PADDING_CHANGE,
     ENGINE_RENDER,
-    EVENT_ON_FOCUS,
-    EVENT_FOCUS_LOST,
     EVENT_DRAG
 )
 
@@ -21,8 +19,6 @@ class Renderer:
         self.root = tk.Tk()
 
         self.frame_padding = [10, 10]
-
-        self.has_focus = False
 
         self.root.overrideredirect(True)
         self.root.attributes("-topmost", True)
@@ -69,22 +65,10 @@ class Renderer:
         self.drag_offset_x = event.x
         self.drag_offset_y = event.y
 
-        if not self.has_focus:
-            self.has_focus = True
-
-            self.bus.emit(
-                EVENT_ON_FOCUS,
-                source=self
-            )
+        self.character.has_focus = True
 
     def _on_mouse_release(self, event):
-        if self.has_focus:
-            self.has_focus = False
-
-            self.bus.emit(
-                EVENT_FOCUS_LOST,
-                source=self
-            )
+        self.character.has_focus = False
 
     def _on_drag(self, event):
 

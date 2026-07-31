@@ -9,6 +9,8 @@ class Character():
         self.width = 0
         self.height = 0
 
+        self.has_focus = False
+
         self.bus.on(
             EVENT_SPRITE_FRAME_CHANGED,
             self._on_sprite_changed

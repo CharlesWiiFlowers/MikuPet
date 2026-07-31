@@ -1,5 +1,5 @@
 from core.events.event_bus import EventBus
-from core.events.event_types import ENGINE_UPDATE, WINDOW_STATE_UPDATED, EVENT_ON_FOCUS, EVENT_FOCUS_LOST, EVENT_ERROR, EVENT_CHARACTER_ANIMATION_CHANGED, EVENT_WALKING_RIGHT
+from core.events.event_types import ENGINE_UPDATE, WINDOW_STATE_UPDATED,EVENT_ERROR, EVENT_CHARACTER_ANIMATION_CHANGED, EVENT_WALKING_RIGHT
 from core.character import Character
 
 class AutoWalk():
@@ -13,16 +13,15 @@ class AutoWalk():
         self.enableAutoWalk = True  # Flag to enable or disable auto walk
 
         # Register event listeners
-        self.bus.on(ENGINE_UPDATE, self._apply_auto_walk)
+        self.bus.on(ENGINE_UPDATE, self.update)
 
         self.bus.on(WINDOW_STATE_UPDATED, self._update_window_state)
 
-        self.bus.on(EVENT_ON_FOCUS, self._disable_auto_walk)
-                    
-        self.bus.on(EVENT_FOCUS_LOST, self._enable_auto_walk)
+    def update(self, event):
+        self._verify_focus()
+        self._apply_auto_walk()
 
-
-    def _apply_auto_walk(self, event):
+    def _apply_auto_walk(self):
 
         if not self.enableAutoWalk:
             return
@@ -59,14 +58,11 @@ class AutoWalk():
 
             self.bus.emit(EVENT_ERROR, data={'error': str(e)})
 
+    def _verify_focus(self):
+        self.enableAutoWalk = not(self.character.has_focus)
+
     def _update_window_state(self, event):
         self.current_window = event.data
-
-    def _disable_auto_walk(self, event):
-        self.enableAutoWalk = False
-
-    def _enable_auto_walk(self, event):
-        self.enableAutoWalk = True
 
     def _emit_character_walking_animation_event_bus(self, isWalking=True, isToRight=True):
         if isWalking:

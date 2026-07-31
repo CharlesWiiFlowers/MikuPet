@@ -8,11 +8,21 @@ class WalkUp():
         self.character = character
 
         self.current_window = None
+        self.enable_walk_up = True
 
-        self.bus.on(ENGINE_UPDATE, self._apply_walk_up)
+        # TODO: Add PRE_UPDATE Verifying
+
+        self.bus.on(ENGINE_UPDATE, self.update)
         self.bus.on(WINDOW_STATE_UPDATED, self._update_window_state)
 
-    def _apply_walk_up(self, event):
+    def update(self, event):
+        self._verify_focus()
+        self._apply_walk_up()
+
+    def _apply_walk_up(self):
+
+        if self.enable_walk_up is False: return
+
         if self.current_window is None: return
 
         if self.character.position["y"] - self.character.height >= self.current_window["bottom"]: return
@@ -22,3 +32,6 @@ class WalkUp():
     
     def _update_window_state(self, event):
         self.current_window = event.data
+
+    def _verify_focus(self):
+        self.enable_walk_up = not(self.character.has_focus)
