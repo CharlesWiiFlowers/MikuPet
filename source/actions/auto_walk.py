@@ -1,5 +1,5 @@
 from core.events.event_bus import EventBus
-from core.events.event_types import ENGINE_UPDATE, WINDOW_STATE_UPDATED,EVENT_ERROR, EVENT_CHARACTER_ANIMATION_CHANGED, EVENT_WALKING_RIGHT
+from core.events.event_types import ENGINE_UPDATE, WINDOW_STATE_UPDATED,EVENT_ERROR
 from core.character import Character
 
 class AutoWalk():
@@ -29,10 +29,12 @@ class AutoWalk():
         if self.current_window is None:
             return  # No window information available yet
 
+        right_limit = self.current_window["right"] - (self.character.width + 8)
+
         if (
             self.current_window["left"]
             <= self.character.position["x"]
-            <= self.current_window["right"] - (self.character.width + 8) # TODO: Make this configurable. Replace 10 with renderer horizontal padding once exposed.
+            <= right_limit # TODO: Make this configurable. Replace 10 with renderer horizontal padding once exposed.
             ):
                 self._emit_character_walking_animation_event_bus(isWalking=False)
                 return # Character is within the window bounds, no need to auto walk
@@ -45,7 +47,7 @@ class AutoWalk():
 
             self._emit_character_walking_animation_event_bus()
 
-        if self.character.position["x"] > self.current_window["right"] - (self.character.width):
+        elif self.character.position["x"] > right_limit:
             new_position_on_x = self.character.position["x"] - 5 #, self.current_window["right"] - self.character.width) # TODO: Make this configurable
 
             self._emit_character_walking_animation_event_bus(isToRight=False)
@@ -66,14 +68,6 @@ class AutoWalk():
 
     def _emit_character_walking_animation_event_bus(self, isWalking=True, isToRight=True):
         if isWalking:
-            self.bus.emit(
-                EVENT_CHARACTER_ANIMATION_CHANGED,
-                ("walk_right" if isToRight else "walk_left"),
-                source=self
-            )
+            self.character.change_animation(("walk_right" if isToRight else "walk_left"))
         else:
-            self.bus.emit(
-                event_name=EVENT_CHARACTER_ANIMATION_CHANGED,
-                data="idle",
-                source=self
-            )
+            self.character.change_animation("idle")

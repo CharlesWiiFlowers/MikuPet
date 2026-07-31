@@ -1,19 +1,20 @@
 from core.events.event_bus import EventBus
 from core.events.event_types import EVENT_CHARACTER_ANIMATION_CHANGED, EVENT_ASSET_LOADED, ENGINE_RENDER, EVENT_SPRITE_FRAME_CHANGED, EVENT_CONFIG_LOADED, EVENT_ON_PADDING_CHANGE
+from core.character import Character
 from render.sprite import Sprite
 from render.sprite_sheet import SpriteSheet
 
 class Animation():
-    def __init__(self, bus: EventBus, sprite: Sprite) -> None:
+    def __init__(self, bus: EventBus, sprite: Sprite, character: Character) -> None:
         self.bus = bus
 
         self.config = {}
 
-        self.character = sprite
+        self.sprite = sprite
 
+        self.character = character
+        
         self.animations = {}
-
-        self.current_animation = "idle"
 
         self.current_animation_vector = []
 
@@ -50,7 +51,8 @@ class Animation():
         self._load_vector_frame()
 
     def change_character_animation(self, event):
-        self.current_animation = event.data
+        self.current_animation_frame = 0
+        self._load_vector_frame()
 
     def _load_config(self, event):
         self.config = event.source
@@ -61,7 +63,7 @@ class Animation():
         if self.animations == {}:
             return
         else:
-            self.current_animation_vector = self.animations[self.current_animation].frames
+            self.current_animation_vector = self.animations[self.character.animation_name].frames
 
     def _continue_frame_animation(self):
          if self.current_animation_vector != []:
@@ -73,7 +75,7 @@ class Animation():
         self._load_vector_frame()
 
     def _verify_padding(self):
-        x, y = self.character.get_padding(self.current_animation)
+        x, y = self.sprite.get_padding(self.character.animation_name)
 
         if [x,y] == self.animation_padding: return
 
@@ -95,7 +97,7 @@ class Animation():
             # Animation
             self.animation_timer += self.delta_time
 
-            animation_fps = 1/8 if self.character.get_animation_fps(self.current_animation) is None else (1 / self.character.get_animation_fps(self.current_animation)) # type: ignore
+            animation_fps = 1/8 if self.sprite.get_animation_fps(self.character.animation_name) is None else (1 / self.sprite.get_animation_fps(self.character.animation_name)) # type: ignore
 
             if self.animation_timer >= (animation_fps):
 

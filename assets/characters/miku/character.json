@@ -21,7 +21,7 @@
         },
 
         "walk_left": {
-            "file": "walk_right.png",
+            "file": "walk_left.png",
             "metadata": "walk.json",
             "fps": 9,
             "loop": -1,

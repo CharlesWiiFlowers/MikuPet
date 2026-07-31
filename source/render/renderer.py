@@ -80,7 +80,7 @@ class Renderer:
 
     def _on_mouse_release(self, event):
         self.bus.emit(EVENT_DRAG_END, source=self)
-        self.character.has_focus = False
+        #self.character.has_focus = False
 
     def _on_drag(self, event):
 
