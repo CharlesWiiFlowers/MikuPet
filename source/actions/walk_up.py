@@ -25,10 +25,10 @@ class WalkUp():
 
         if self.current_window is None: return
 
-        if self.character.position["y"] - self.character.height >= self.current_window["bottom"]: return
+        if self.character.position["y"] + self.character.height <= self.current_window["bottom"]: return
 
         # Apply walk up
-        self.character.position["y"] += 5 # TODO: Make this configurable
+        self.character.position["y"] -= 5 # TODO: Make this configurable
     
     def _update_window_state(self, event):
         self.current_window = event.data
