@@ -1,17 +1,45 @@
-import os
-from mod.settings import load_settings, TEMPLATE
-
-CHARACTER_FOLDER:list[str] = [item for item in os.listdir("./assets/") if "." not in item]
-
-print(CHARACTER_FOLDER)
+from core.events.event_bus import EventBus
+from core.character import Character
+from core.config import Config
+from core.engine import Engine
+from render.animation import Animation
+from render.asset_loader import AssetLoader
+from render.renderer import Renderer
+from render.sprite import Sprite
+from systems.window_system import WindowSystem
+from actions.gravity import Gravity
+from actions.auto_walk import AutoWalk
+from actions.drag import DragSystem
+from actions.walk_up import WalkUp
+from utils.logger import Logger
 
 class Main():
     def __init__(self) -> None:
-        self.settings = load_settings() if load_settings() != None else TEMPLATE
 
-    def validations(self) -> None:
-        if self.settings["selected_character"] in CHARACTER_FOLDER: # type: ignore
-            # :p
+        # Initialize core components
+        self.bus = EventBus()
+        self.character = Character(bus=self.bus)
+        self.config = Config(bus=self.bus)
+        self.logger = Logger(bus=self.bus)
+        self.engine = Engine(bus=self.bus)
+
+        # Initialize systems
+        self.window_system = WindowSystem(bus=self.bus)
+
+        # Initialize actions
+        self.gravity = Gravity(bus=self.bus, character=self.character)
+        self.auto_walk = AutoWalk(bus=self.bus, character=self.character)
+        self.drag = DragSystem(bus=self.bus, character=self.character)
+        self.walk_up = WalkUp(bus=self.bus, character=self.character)
+
+        # Initialize Render
+        self.asset_loader = AssetLoader(bus=self.bus)
+        self.sprite = Sprite(bus=self.bus)
+        self.animation = Animation(bus=self.bus, sprite=self.sprite, character=self.character)
+        self.render = Renderer(bus=self.bus, character=self.character)
+
+        self.config.load()
+        self.engine.start()
 
 if __name__ == "__main__":
     Main()

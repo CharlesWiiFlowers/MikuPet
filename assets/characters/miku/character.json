@@ -1,0 +1,39 @@
+{
+    "name": "Hatsune Miku",
+    "scale": 1.0,
+    "version": "1.0",
+    "author": "BYP Studio and Chaim Videogames",
+    "animations": {
+        "idle": {
+            "file": "idle.png",
+            "metadata": "idle.json",
+            "fps": 9,
+            "loop": -1,
+            "padding": [8, 5]
+        },
+
+        "walk_right": {
+            "file": "walk_right.png",
+            "metadata": "walk.json",
+            "fps": 9,
+            "loop": -1,
+            "padding": [8,5]
+        },
+
+        "walk_left": {
+            "file": "walk_left.png",
+            "metadata": "walk.json",
+            "fps": 9,
+            "loop": -1,
+            "padding": [8,5]
+        },
+
+        "dragging": {
+            "file": "dragging.png",
+            "metadata": "dragging.json",
+            "fps": 9,
+            "loop": -1,
+            "padding": [8,5]
+        }
+    }
+}
