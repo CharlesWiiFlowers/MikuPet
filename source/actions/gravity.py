@@ -13,6 +13,8 @@ class Gravity():
 
         self.enableGravity = True  # Flag to enable or disable gravity
 
+        self.frames_to_wait = 0
+
         # Register event listeners
         self.bus.on(ENGINE_UPDATE, self.update)
 
@@ -20,10 +22,16 @@ class Gravity():
 
     def update(self, event):
         self._verify_focus()
-        self._apply_gravity()
+
+        if self.frames_to_wait <= 0:
+            self._apply_gravity()
+        else:
+            self.frames_to_wait -= 1
 
     def _update_window_state(self, event):
         self.current_window = event.data
+
+        self.frames_to_wait = 5
 
     def _apply_gravity(self):
 
