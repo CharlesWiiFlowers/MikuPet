@@ -6,7 +6,7 @@ from core.events.event_bus import EventBus
 from core.events import event_types
 import platform
 
-from systems.platform.window.get_active_window import get_active_window_rect
+from systems.platform.Windows.get_active_window import get_active_window_rect
 
 class WindowSystem:
     def __init__(self, bus: EventBus):

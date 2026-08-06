@@ -16,6 +16,8 @@ ENGINE_RENDER = "engine_render"
 
 # System
 WINDOW_STATE_UPDATED = "window_updated"
+MONITORS_UPDATED = "monitors_info_updated"
+MONITOR_CHANGED = "miku went out of one monitor"
 
 # Character
 # EVENT_POSITION_CHANGED = "position_changed"
