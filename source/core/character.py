@@ -1,5 +1,5 @@
 from core.events.event_bus import EventBus
-from core.events.event_types import EVENT_SPRITE_FRAME_CHANGED, EVENT_CHARACTER_ANIMATION_CHANGED
+from core.events.event_types import EVENT_SPRITE_FRAME_CHANGED, EVENT_CHARACTER_ANIMATION_CHANGED, ENGINE_PRE_UPDATE
 
 class Character():
     def __init__(self, bus:EventBus) -> None:
@@ -18,6 +18,11 @@ class Character():
             self._on_sprite_changed
         )
 
+        self.bus.on(
+            ENGINE_PRE_UPDATE,
+            self._pre_update
+        )
+
     def change_animation(self, animation_name:str):
         if self.animation_name == animation_name: return
 
@@ -27,6 +32,9 @@ class Character():
             EVENT_CHARACTER_ANIMATION_CHANGED,
             source=self
         )
+
+    def _pre_update(self, event):
+        if self.has_focus: self.change_animation("dragging")
 
     def _on_sprite_changed(self, event):
         self.width = event.data.width()
