@@ -8,6 +8,7 @@ A virtual desktop pet inspired by Hatsune Miku. She follows your active window, 
   <img src="./public/media/example_0.gif" alt="MikuPet Demo" width="350"/>
   <img src="./public/media/example_1.gif" alt="Miku Walking" width="350"/>
   <img src="./public/media/example_2.gif" alt="Miku Walking to left" width="350"/>
+  <p>Note: Media sources are from v1.0.0</p>
 </div>
 
 ## Features
