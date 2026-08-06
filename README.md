@@ -1,100 +1,139 @@
-# 🌟 MikuPet - Your Desktop Diva Companion!
+# MikuPet - Your Desktop Diva Companion
 
-A virtual desktop pet inspired by Hatsune Miku. Always walk to the active window and you can drag her!
+A virtual desktop pet inspired by Hatsune Miku. She follows your active window, walks around your desktop, and you can interact with her directly.
 
-## 📸 Preview
+## Preview
 
 <div align="center">
   <img src="./public/media/example_0.gif" alt="MikuPet Demo" width="350"/>
   <img src="./public/media/example_1.gif" alt="Miku Walking" width="350"/>
   <img src="./public/media/example_2.gif" alt="Miku Walking to left" width="350"/>
-  <img src="./public/media/example_3.gif" alt="Chatting with Miku" width="350"/>
 </div>
 
 ## Features
 
-- ⭐ Follows the **active window** around your desktop.
-- ⭐ **Drag** her around with your mouse
-- ⭐ Respond to simple **text commands**
-- ⭐ Super lightweight and made with love.
+* Follows the active window around your desktop.
+* Walks automatically across the window boundaries.
+* Drag Miku around with your mouse.
+* Animated sprite system with customizable characters.
+* Lightweight desktop companion built with Python.
 
 ---
 
-## 🔧 Quick setup installation
+## Installation
 
 > [!NOTE]
-> Works only on Windows (for now). Mac and Linux may come later!
+> MikuPet currently supports Windows only.
 
-To run **MikuPet** on your system, follow these simple steps:
+To run MikuPet on your system:
 
-1. 🐍 **Make sure Python is installed.**  
-   - Python 3 is required (any modern version should work).
-   - You can download it from [python.org](https://www.python.org/downloads/)
+### 1. Install Python
 
-2. 📂 **Download the latest release**  
-   - Go to the [Releases section](https://github.com/charleswiiflowers/MikuPet/releases) of this repository.
-   - Download the `.zip` or `.tar.gz` file for the latest version.
-   - Extract it to a folder of your choice.
+Make sure Python 3 is installed on your system.
 
-3. ⚙️ **Install dependencies**  
-   Open a terminal (or command prompt), navigate to the extracted folder, and run:
+You can download it from:
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. 🏁 **Run the app**
-   Simply double-click on `start.bat` to launch the app.
-   A console window will open — this is where you can type commands to interact with Miku (for example, `miku bye` to exit).
+https://www.python.org/downloads/
 
-## 🖱️ Usage
+### 2. Download MikuPet
 
-Using **MikuPet** is super simple:
+Go to the [Releases section](https://github.com/charleswiiflowers/MikuPet/releases) and download the latest version.
 
-1. Double-click on `start.bat` to launch the app.
-2. Miku will appear on your desktop, floating and moving cutely.
-3. A terminal window will open — this is your way to chat with Miku!
+Extract the files anywhere on your computer.
 
-### 🗣️ Available Commands
+### 3. Install dependencies
 
-You can type the following commands into the console:
+Open a terminal inside the MikuPet folder and run:
 
-| 🖥️ Command                | 🧵 Description                          |
-|------------------------|--------------------------------------|
-| `miku hello` or `hello`| **Miku will greet you warmly** 💙        |
-| `miku bye` or `bye`    | **Closes MikuPet gracefully** 👋         |
-| `how are you` *(variants)* | **Miku responds to your question** 🤖🎶<br>Accepted forms: `how are you`, `how are you?`, `miku how are you` |
+```bash
+pip install -r requirements.txt
+```
 
-More commands coming soon... maybe even little surprises! 🎁✨
+### 4. Run MikuPet
+
+Execute:
+
+```bash
+start.bat
+```
+
+MikuPet will launch and appear on your desktop.
 
 ---
 
-## 🛠️ Built with
+## Usage
 
-- 🐍 Python 3
-- 🖥️ Tkinter
-- 🎨 Pixel Art Sprites
+After launching MikuPet:
 
-## 🌱 Roadmap
+* Miku will appear on your desktop.
+* She will follow the active window.
+* You can drag her around with your mouse.
 
-- [ ] Miku speaks and sings at random moments.
-- [ ] Mini desktop games.
-- [ ] Feed Miku!
-- [ ] More characters like **Teto, Rin and Len**!
-- [ ] **AI and IoT integration!**
+More interaction features will be added in future versions.
 
 ---
 
-## 🌟 Credits
+## Built With
 
-- 💗 Created with love by [Charles Flowers](https://charleswiiflowers.github.io/)
-- ⚡ Assets by **BYP Studio** y **Chaim Videogames** for the game [Miku 'n pop](https://chaim-videogames.itch.io/mikun-pop). Source: [The VG Resource](https://www.spriters-resource.com/pc_computer/mikunpop/sheet/46493/)
-- 🦀 Inspired by the Shimeji classic desktop pets. 
+* Python 3
+* Tkinter
+* Pixel Art Sprites
+* LibreSprite (for sprite editing and organization)
 
 ---
 
-## 💘 Thank you for visiting!
+## Architecture
 
-Have fun chatting with your digital desktop diva 💫
+MikuPet has been rebuilt with a modular internal architecture.
 
-> 🎶 Life is a melody you compose at your own tempo.
-> Let **MikuPet** be your rhythm compation for every line of code. 🖥️✨
+The current version includes:
+
+* Event-driven communication system.
+* Engine update loop.
+* Configurable systems.
+* Character state management.
+* Independent rendering and animation systems.
+
+The goal is to make MikuPet easier to extend with new behaviors, characters, and features.
+
+---
+
+## Contributing
+
+Contributions are welcome!
+
+If you want to improve MikuPet, feel free to open an issue or submit a pull request.
+
+The project documentation is still being improved. I hope to document the codebase in the future so contributing becomes easier for everyone.
+
+Every contribution will be reviewed before merging.
+
+Some especially valuable contributions would be:
+
+* Adding macOS support.
+* Improving cross-platform compatibility.
+* Adding new characters or animations.
+* Improving the internal systems.
+
+Linux support is also planned, but will be worked on later.
+
+---
+
+## Credits
+
+* Created with love by [Charles Flowers](https://charleswiiflowers.github.io/)
+
+* Character assets by **BYP Studio** and **Chaim Videogames** for *Miku 'n Pop*.
+  Source: [The VG Resource](https://www.spriters-resource.com/pc_computer/mikunpop/sheet/46493/)
+
+* Inspired by classic desktop pets such as Shimeji.
+
+---
+
+## Thank You
+
+Thanks for checking out MikuPet.
+
+I hope this little desktop companion brings some fun to your workspace and makes your coding sessions a little more enjoyable.
+
+> Life is a melody you compose at your own tempo.
