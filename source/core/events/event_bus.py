@@ -16,10 +16,10 @@ from core.events import event_types
 class EventBus:
 
     def __init__(self):
-        self.listeners: dict[str, list[Callable[[Event]]]] = {}
-        self.global_listeners: list[Callable[[Event]]] = []
+        self.listeners: dict[str, list[Callable[[Event], None]]] = {}
+        self.global_listeners: list[Callable[[Event], None]] = []
 
-    def on(self, event_name:str, callback: Callable[[Event]]):
+    def on(self, event_name:str, callback: Callable[[Event], None]):
         """Subscribe to an event.
 
         Args:
@@ -37,7 +37,7 @@ class EventBus:
 
         self.listeners[event_name].append(callback)
 
-    def on_all(self, callback: Callable[[Event]]):
+    def on_all(self, callback: Callable[[Event], None]):
         """Subscribe to every event.
 
         Args:
