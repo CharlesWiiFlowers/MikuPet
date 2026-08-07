@@ -11,7 +11,6 @@ MikuPet in action:
   <img src="./public/media/example_0.gif" alt="MikuPet Demo" width="350"/>
   <img src="./public/media/example_1.gif" alt="Miku Walking" width="350"/>
   <img src="./public/media/example_2.gif" alt="Miku Walking Left" width="350"/>
-  <img src="./public/media/example_3.gif" alt="Miku Interaction" width="350"/>
 </div>
 
 ## Table of Contents
