@@ -2,18 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
-## [v1.1.0 Bloom Update] - 2026-08-07
+## [v1.2.0 Bloom Update] - 2026-08-07
 
 ### Added
 
-- Added executable support for Windows (.exe).
-- Executable Icon
-- Build Script for PowerShell
+- Standalone executable support.
+- PowerShell build script for creating releases.
+- Executable icon.
+- New file system management system for handling development and packaged environments.
 
 ### Changed
 
-- Reworked the file loading system to support executable builds.
-- Externalized assets and data files from the executable.
+- Reworked file loading to support both source execution and executable versions.
+- Assets and data are now stored outside the executable for easier customization.
+- Improved internal project organization.
+
+### Fixed
+
+- Fixed issues caused by missing or incorrect file paths when running outside the development environment.
+- Improved stability when launching MikuPet as an executable.
 
 ## [v1.1.0 Rebirth Update] - 2026-08-05
 
