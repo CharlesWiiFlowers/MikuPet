@@ -11,7 +11,7 @@ MikuPet in action:
   <img src="./public/media/example_0.gif" alt="MikuPet Demo" width="350"/>
   <img src="./public/media/example_1.gif" alt="Miku Walking" width="350"/>
   <img src="./public/media/example_2.gif" alt="Miku Walking Left" width="350"/>
-  Note: Media sources are from release v1.0.0
+  <p>Note: Media sources are from release v1.0.0</p>
 </div>
 
 ## Table of Contents
