@@ -5,6 +5,7 @@ Load spritesheets and their metadata.
 import json
 from pathlib import Path
 
+from core.file_system import FileSystem
 from core.events.event_bus import EventBus
 from core.events.event_types import (
     EVENT_ERROR,
@@ -50,8 +51,7 @@ class AssetLoader:
             "miku"
         )
 
-        character_dir = Path(
-            "assets",
+        character_dir = FileSystem.assets(
             "characters",
             selected_character
         )

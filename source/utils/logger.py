@@ -7,6 +7,7 @@ from pathlib import Path
 from core.events.event_bus import EventBus
 from core.events.event_types import EVENT_ERROR, ENGINE_PRE_UPDATE, ENGINE_UPDATE, ENGINE_RENDER, WINDOW_STATE_UPDATED, EVENT_SPRITE_FRAME_CHANGED, EVENT_CHARACTER_ANIMATION_CHANGED
 from core.events.events import Event
+from core.file_system import FileSystem
 
 class Logger():
     def __init__(self, bus:EventBus) -> None:
@@ -18,12 +19,11 @@ class Logger():
             callback=self.write_log
         )
 
-        self.project_root = Path(__file__).resolve().parent.parent.parent
-        self.log_dir = self.project_root / "data"
+        self.log_dir = FileSystem.data()
+        self.log_dir.mkdir(exist_ok=True)
+
         self.log_file = self.log_dir / "events.log"
         self.log_long_file = self.log_dir / "detailed_events.log"
-
-        self.log_dir.mkdir(exist_ok=True)
     
     def write_log(self, event:Event):
 
