@@ -2,7 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [v1.1.0 Bloom Update] - 2026-08-07
+
+### Added
+
+- Added executable support for Windows (.exe).
+- Executable Icon
+- Build Script for PowerShell
+
+### Changed
+
+- Reworked the file loading system to support executable builds.
+- Externalized assets and data files from the executable.
+
+## [v1.1.0 Rebirth Update] - 2026-08-05
 
 ### Added
 

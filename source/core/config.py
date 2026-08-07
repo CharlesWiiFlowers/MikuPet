@@ -3,6 +3,7 @@ General settings for MikuPet. This file is used to store user preferences and co
 """
 from core.events.event_types import EVENT_CONFIG_LOADED, EVENT_ERROR, EVENT_CONFIG_UPDATE
 from core.events.event_bus import EventBus
+from core.file_system import FileSystem
 from pathlib import Path
 import json
 
@@ -11,7 +12,8 @@ class Config:
 
     DEFAULT_CONFIG = {
         "selected_character": "miku",
-        "debug": True
+        "debug": True,
+        "fps": 60
     }
 
     def __init__(self, bus: EventBus) -> None:
@@ -19,10 +21,10 @@ class Config:
 
         self.project_root = Path(__file__).resolve().parent.parent.parent
 
-        self.config_dir = self.project_root / "data"
-        self.config_file = self.config_dir / "config.json"
-
+        self.config_dir = FileSystem.data()
         self.config_dir.mkdir(exist_ok=True)
+
+        self.config_file = self.config_dir / "config.json"
 
         if not self.config_file.exists():
             self.data = self.DEFAULT_CONFIG.copy()

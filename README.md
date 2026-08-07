@@ -1,76 +1,115 @@
-# MikuPet - Your Desktop Diva Companion
+# 🎵 MikuPet - Your Desktop Diva Companion
 
-A virtual desktop pet inspired by Hatsune Miku. She follows your active window, walks around your desktop, and you can interact with her directly.
+A small virtual desktop companion inspired by Hatsune Miku.
+She follows your active window, walks around your desktop, and keeps you company while you work or code.
 
-## Preview
+## 📸 Preview
+
+MikuPet in action:
 
 <div align="center">
   <img src="./public/media/example_0.gif" alt="MikuPet Demo" width="350"/>
   <img src="./public/media/example_1.gif" alt="Miku Walking" width="350"/>
-  <img src="./public/media/example_2.gif" alt="Miku Walking to left" width="350"/>
-  <p>Note: Media sources are from v1.0.0</p>
+  <img src="./public/media/example_2.gif" alt="Miku Walking Left" width="350"/>
+  <img src="./public/media/example_3.gif" alt="Miku Interaction" width="350"/>
 </div>
 
-## Features
+## Table of Contents
 
-* Follows the active window around your desktop.
-* Walks automatically across the window boundaries.
-* Drag Miku around with your mouse.
-* Animated sprite system with customizable characters.
-* Lightweight desktop companion built with Python.
+* [Features](#features)
+* [Quick Setup](#quick-setup)
+* [Usage](#usage)
+* [Building from Source](#building-from-source)
+* [Built With](#built-with)
+* [Architecture](#architecture)
+* [Contributing](#contributing)
+* [Credits](#credits)
 
 ---
 
-## Installation
+## ✨ Features
+
+* Follows the active window around your desktop.
+* Walks automatically across window boundaries.
+* Drag Miku around with your mouse.
+* Animated sprite system with customizable characters.
+* Lightweight desktop companion built with Python.
+* Modular architecture designed for future extensions.
+
+---
+
+## 🚀 Quick Setup
 
 > [!NOTE]
 > MikuPet currently supports Windows only.
 
-To run MikuPet on your system:
+The easiest way to use MikuPet is by downloading the latest release.
 
-### 1. Install Python
+### 1. Download MikuPet
 
-Make sure Python 3 is installed on your system.
+Go to the [Releases section](https://github.com/charleswiiflowers/MikuPet/releases) and download the latest `MikuPet.zip`.
 
-You can download it from:
+Extract the contents anywhere on your computer.
 
-https://www.python.org/downloads/
+The folder should contain:
 
-### 2. Download MikuPet
-
-Go to the [Releases section](https://github.com/charleswiiflowers/MikuPet/releases) and download the latest version.
-
-Extract the files anywhere on your computer.
-
-### 3. Install dependencies
-
-Open a terminal inside the MikuPet folder and run:
-
-```bash
-pip install -r requirements.txt
+```text
+MikuPet.exe
+assets/
+data/
 ```
 
-### 4. Run MikuPet
+### 2. Run MikuPet
 
 Execute:
 
-```bash
-start.bat
+```text
+MikuPet.exe
 ```
 
-MikuPet will launch and appear on your desktop.
+MikuPet will appear on your desktop and start following your active window.
 
 ---
 
 ## Usage
 
-After launching MikuPet:
+After launching MikuPet, she will appear on your desktop and start her little desktop adventure:
 
-* Miku will appear on your desktop.
-* She will follow the active window.
+* Miku will follow the active window.
 * You can drag her around with your mouse.
+* Her animations and behaviors are managed automatically.
 
-More interaction features will be added in future versions.
+More interaction features may be added in future versions.
+
+---
+
+## 🛠️ Building from Source
+
+If you want to build MikuPet yourself, make sure you have Python 3 installed.
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Then run the build script:
+
+```powershell
+.\scripts\build.ps1
+```
+
+The script will create the executable using PyInstaller.
+
+The generated executable is designed to work with external folders:
+
+```text
+MikuPet.exe
+assets/
+data/
+```
+
+Assets and configuration files are intentionally kept outside the executable to make customization and future extensions easier.
 
 ---
 
@@ -78,14 +117,15 @@ More interaction features will be added in future versions.
 
 * Python 3
 * Tkinter
+* PyInstaller
 * Pixel Art Sprites
 * LibreSprite (for sprite editing and organization)
 
 ---
 
-## Architecture
+## 🧩 Architecture
 
-MikuPet has been rebuilt with a modular internal architecture.
+MikuPet was rebuilt with a modular internal architecture.
 
 The current version includes:
 
@@ -94,33 +134,34 @@ The current version includes:
 * Configurable systems.
 * Character state management.
 * Independent rendering and animation systems.
+* External asset loading system.
 
 The goal is to make MikuPet easier to extend with new behaviors, characters, and features.
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome!
 
 If you want to improve MikuPet, feel free to open an issue or submit a pull request.
 
-The project documentation is still being improved. I hope to document the codebase in the future so contributing becomes easier for everyone.
+The codebase documentation is still being improved. I hope to document the project in the future so contributing becomes easier for everyone.
 
-Every contribution will be reviewed before merging.
+All contributions will be reviewed before merging.
 
 Some especially valuable contributions would be:
 
 * Adding macOS support.
 * Improving cross-platform compatibility.
 * Adding new characters or animations.
-* Improving the internal systems.
+* Improving internal systems.
 
 Linux support is also planned, but will be worked on later.
 
 ---
 
-## Credits
+## 💙 Credits
 
 * Created with love by [Charles Flowers](https://charleswiiflowers.github.io/)
 
@@ -131,9 +172,9 @@ Linux support is also planned, but will be worked on later.
 
 ---
 
-## Thank You
+## 🎵 Thank You
 
-Thanks for checking out MikuPet.
+Thanks for checking out MikuPet!
 
 I hope this little desktop companion brings some fun to your workspace and makes your coding sessions a little more enjoyable.
 
