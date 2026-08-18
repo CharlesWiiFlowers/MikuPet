@@ -11,6 +11,7 @@ from actions.gravity import Gravity
 from actions.auto_walk import AutoWalk
 from actions.drag import DragSystem
 from actions.walk_up import WalkUp
+from actions.random.start_random_action import RandomActions
 from utils.logger import Logger
 
 class Main():
@@ -31,6 +32,7 @@ class Main():
         self.auto_walk = AutoWalk(bus=self.bus, character=self.character)
         self.drag = DragSystem(bus=self.bus, character=self.character)
         self.walk_up = WalkUp(bus=self.bus, character=self.character)
+        self.random = RandomActions(bus=self.bus, character=self.character)
 
         # Initialize Render
         self.asset_loader = AssetLoader(bus=self.bus)

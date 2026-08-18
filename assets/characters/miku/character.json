@@ -34,6 +34,14 @@
             "fps": 9,
             "loop": -1,
             "padding": [8,5]
+        },
+
+        "sneeze": {
+            "file": "sneeze.png",
+            "metadata": "sneeze.json",
+            "fps": 7,
+            "loop": 1,
+            "padding": [8,5]
         }
     }
 }

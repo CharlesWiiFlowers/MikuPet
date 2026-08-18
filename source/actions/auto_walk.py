@@ -70,4 +70,5 @@ class AutoWalk():
         if isWalking:
             self.character.change_animation(("walk_right" if isToRight else "walk_left"))
         else:
-            self.character.change_animation("idle")
+            if self.character.is_doing_an_action == False:
+                self.character.change_animation("idle")

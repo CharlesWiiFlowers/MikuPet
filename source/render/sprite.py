@@ -41,6 +41,12 @@ class Sprite():
 
             return self.default_x_padding, self.default_y_padding
 
+    def get_animation_frame_loop_count(self, animation:str):
+        if self.character_metadata is None: return
+
+        return self.character_metadata["animations"][animation]["loop"]
+
+
     def _load_animation_assets(self, event):
         self.sprites = event.data
 

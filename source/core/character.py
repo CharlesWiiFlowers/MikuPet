@@ -12,6 +12,7 @@ class Character():
         self.has_focus = False
         self.is_dragging = False
         self.animation_name = "idle"
+        self.is_doing_an_action = False
 
         self.bus.on(
             EVENT_SPRITE_FRAME_CHANGED,
