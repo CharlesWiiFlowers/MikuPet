@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- Sneeze action
+- Random actions launcher
+- Context Menu whenever the users right-click
+- Kill Miku action
+
 ## [v1.1.0 Bloom Update] - 2026-08-07
 
 ### Added
