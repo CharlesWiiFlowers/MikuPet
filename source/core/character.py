@@ -1,5 +1,5 @@
 from core.events.event_bus import EventBus
-from core.events.event_types import EVENT_SPRITE_FRAME_CHANGED, EVENT_CHARACTER_ANIMATION_CHANGED, ENGINE_PRE_UPDATE
+from core.events.event_types import EVENT_SPRITE_FRAME_CHANGED, EVENT_CHARACTER_ANIMATION_CHANGED, ENGINE_PRE_UPDATE, EVENT_ON_FOCUS, EVENT_FOCUS_LOST
 
 class Character():
     def __init__(self, bus:EventBus) -> None:
@@ -40,3 +40,11 @@ class Character():
     def _on_sprite_changed(self, event):
         self.width = event.data.width()
         self.height = event.data.height()
+
+    def set_focus(self, enable:bool=True):
+        self.has_focus = enable
+
+        self.bus.emit(
+            EVENT_ON_FOCUS if self.has_focus else EVENT_FOCUS_LOST,
+            source=self
+        )

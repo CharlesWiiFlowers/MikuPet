@@ -13,6 +13,7 @@ from actions.drag import DragSystem
 from actions.walk_up import WalkUp
 from actions.random.start_random_action import RandomActions
 from utils.logger import Logger
+from UI.context_menu import ContextMenu
 
 class Main():
     def __init__(self) -> None:
@@ -39,6 +40,9 @@ class Main():
         self.sprite = Sprite(bus=self.bus)
         self.animation = Animation(bus=self.bus, sprite=self.sprite, character=self.character)
         self.render = Renderer(bus=self.bus, character=self.character)
+
+        # Initialize UI
+        self.context_menu = ContextMenu(bus=self.bus, character=self.character)
 
         self.config.load()
         self.engine.start()

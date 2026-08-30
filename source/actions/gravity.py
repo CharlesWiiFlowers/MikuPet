@@ -1,5 +1,5 @@
 from core.events.event_bus import EventBus
-from core.events.event_types import ENGINE_UPDATE, WINDOW_STATE_UPDATED, EVENT_ERROR
+from core.events.event_types import ENGINE_UPDATE, WINDOW_STATE_UPDATED, EVENT_ERROR, ENGINE_PRE_UPDATE
 from core.character import Character
 
 class Gravity():
@@ -16,13 +16,16 @@ class Gravity():
         self.frames_to_wait = 0
 
         # Register event listeners
+        self.bus.on(ENGINE_PRE_UPDATE, self.pre_update)
+
         self.bus.on(ENGINE_UPDATE, self.update)
 
         self.bus.on(WINDOW_STATE_UPDATED, self._update_window_state)
 
-    def update(self, event):
+    def pre_update(self, event):
         self._verify_focus()
 
+    def update(self, event):
         if self.frames_to_wait <= 0:
             self._apply_gravity()
         else:

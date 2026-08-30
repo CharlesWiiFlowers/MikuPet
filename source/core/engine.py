@@ -20,6 +20,11 @@ class Engine:
             self._update_config
         )
 
+        self.bus.on(
+            event_name=event_types.EVENT_ACTION_REQUESTED_KILL,
+            callback=self._on_kill
+        )
+
     def start(self):
         self.running = True
 
@@ -48,3 +53,6 @@ class Engine:
 
     def _update_config(self, event):
         self._load_config(event=event)
+
+    def _on_kill(self, event):
+        self.running = False

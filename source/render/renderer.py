@@ -7,7 +7,8 @@ from core.events.event_types import (
     EVENT_ON_PADDING_CHANGE,
     ENGINE_RENDER,
     EVENT_DRAG,
-    EVENT_DRAG_END
+    EVENT_DRAG_END,
+    EVENT_CONTEXT_MENU_REQUESTED
 )
 
 class Renderer:
@@ -50,6 +51,7 @@ class Renderer:
         self.root.bind("<FocusIn>", self._handle_focus_in)
         self.root.bind("<FocusOut>", self._handle_focus_out)
         self.root.bind("<Motion>", self._on_drag)
+        self.root.bind("<Button-3>", self._on_right_click)
 
         self.bus.on(
             EVENT_SPRITE_FRAME_CHANGED,
@@ -64,6 +66,16 @@ class Renderer:
         self.bus.on(
             EVENT_ON_PADDING_CHANGE,
             self._on_padding_changed
+        )
+
+    def _on_right_click(self, event):
+        self.bus.emit(
+            EVENT_CONTEXT_MENU_REQUESTED,
+            source=self,
+            data={
+                "x": event.x_root,
+                "y": event.y_root
+            }
         )
 
     def _handle_focus_in(self, event):

@@ -21,8 +21,8 @@ MONITOR_CHANGED = "miku went out of one monitor"
 
 # Character
 # EVENT_POSITION_CHANGED = "position_changed"
-# EVENT_ON_FOCUS = "on_focus"
-# EVENT_FOCUS_LOST = "on_focus_lost"
+EVENT_ON_FOCUS = "on_focus"
+EVENT_FOCUS_LOST = "on_focus_lost"
 EVENT_DRAG = "on_drag_by_mouse"
 EVENT_DRAG_END = "ended_drag_by_mouse"
 EVENT_WALKING_RIGHT = "walking_right"
@@ -35,3 +35,7 @@ EVENT_METADATA_ASSET_LOADED = "metadata_asset_loaded"
 EVENT_CHARACTER_ANIMATION_CHANGED = "character_animation_changed"
 EVENT_SPRITE_FRAME_CHANGED = "sprite_frame_changed"
 EVENT_ON_PADDING_CHANGE = "character_padding_change"
+
+# Context Menu
+EVENT_CONTEXT_MENU_REQUESTED = "context_menu_requested"
+EVENT_ACTION_REQUESTED_KILL = "action_requested_kill"
