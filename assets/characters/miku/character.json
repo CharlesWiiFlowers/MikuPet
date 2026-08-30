@@ -5,40 +5,40 @@
     "author": "BYP Studio and Chaim Videogames",
     "animations": {
         "idle": {
-            "file": "idle.png",
-            "metadata": "idle.json",
+            "file": "sprites/idle.png",
+            "metadata": "metadata/idle.json",
             "fps": 9,
             "loop": -1,
             "padding": [8, 5]
         },
 
         "walk_right": {
-            "file": "walk_right.png",
-            "metadata": "walk.json",
+            "file": "sprites/walk_right.png",
+            "metadata": "metadata/walk.json",
             "fps": 9,
             "loop": -1,
             "padding": [8,5]
         },
 
         "walk_left": {
-            "file": "walk_left.png",
-            "metadata": "walk.json",
+            "file": "sprites/walk_left.png",
+            "metadata": "metadata/walk.json",
             "fps": 9,
             "loop": -1,
             "padding": [8,5]
         },
 
         "dragging": {
-            "file": "dragging.png",
-            "metadata": "dragging.json",
+            "file": "sprites/dragging.png",
+            "metadata": "metadata/dragging.json",
             "fps": 9,
             "loop": -1,
             "padding": [8,5]
         },
 
         "sneeze": {
-            "file": "sneeze.png",
-            "metadata": "sneeze.json",
+            "file": "sprites/sneeze.png",
+            "metadata": "metadata/sneeze.json",
             "fps": 7,
             "loop": 1,
             "padding": [8,5]
