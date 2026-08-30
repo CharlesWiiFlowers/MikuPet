@@ -2,8 +2,10 @@ from core.events.event_bus import EventBus
 from core.events.event_types import EVENT_SPRITE_FRAME_CHANGED, EVENT_CHARACTER_ANIMATION_CHANGED, ENGINE_PRE_UPDATE, EVENT_ON_FOCUS, EVENT_FOCUS_LOST
 
 class Character():
-    def __init__(self, bus:EventBus) -> None:
+    def __init__(self, bus:EventBus, pid:int) -> None:
         self.bus = bus
+
+        self.PID = pid
 
         self.position: dict[str, float] = {"x": 0, "y": 0}
         self.width = 0
@@ -48,3 +50,6 @@ class Character():
             EVENT_ON_FOCUS if self.has_focus else EVENT_FOCUS_LOST,
             source=self
         )
+
+    def get_PID(self):
+        return self.PID

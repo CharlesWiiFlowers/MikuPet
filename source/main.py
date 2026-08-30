@@ -15,18 +15,20 @@ from actions.random.start_random_action import RandomActions
 from utils.logger import Logger
 from UI.context_menu import ContextMenu
 
+import os
+
 class Main():
     def __init__(self) -> None:
 
         # Initialize core components
         self.bus = EventBus()
-        self.character = Character(bus=self.bus)
+        self.character = Character(bus=self.bus, pid=os.getpid())
         self.config = Config(bus=self.bus)
         self.logger = Logger(bus=self.bus)
         self.engine = Engine(bus=self.bus)
 
         # Initialize systems
-        self.window_system = WindowSystem(bus=self.bus)
+        self.window_system = WindowSystem(bus=self.bus, character=self.character)
 
         # Initialize actions
         self.gravity = Gravity(bus=self.bus, character=self.character)
