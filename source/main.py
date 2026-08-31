@@ -14,6 +14,7 @@ from actions.walk_up import WalkUp
 from actions.random.start_random_action import RandomActions
 from utils.logger import Logger
 from UI.context_menu import ContextMenu
+from objects.loaders.leek_loader import LeekLoader
 
 import os
 
@@ -46,6 +47,10 @@ class Main():
         # Initialize UI
         self.context_menu = ContextMenu(bus=self.bus, character=self.character)
 
+        # Objects
+        self.leek_loader = LeekLoader()
+
+        self.leek_loader.load()
         self.config.load()
         self.engine.start()
 
