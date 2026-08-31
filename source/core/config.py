@@ -13,7 +13,19 @@ class Config:
     DEFAULT_CONFIG = {
         "selected_character": "miku",
         "debug": True,
-        "fps": 60
+        "fps": 60,
+        "random_actions": {
+            "sneeze": {
+                "min": 10,
+                "max": 90
+            }
+        },
+        "random_objects_spawn": {
+            "leek": {
+                "min": 20,
+                "max": 200      
+            }
+        }
     }
 
     def __init__(self, bus: EventBus) -> None:

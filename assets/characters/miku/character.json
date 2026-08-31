@@ -41,7 +41,7 @@
             "metadata": "metadata/sneeze.json",
             "fps": 7,
             "loop": 1,
-            "padding": [8,5]
+            "padding": [-15,5]
         }
     }
 }

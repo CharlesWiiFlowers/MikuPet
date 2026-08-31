@@ -21,7 +21,7 @@ class DragSystem():
     def _on_drag(self, event):
 
         if not self.character.has_focus:
-            pass
+            return
 
         self.character.position["x"] = (
             event.data["mouse_x"] - event.data["offset_x"]

@@ -48,9 +48,9 @@ class Main():
         self.context_menu = ContextMenu(bus=self.bus, character=self.character)
 
         # Objects
-        self.leek_loader = LeekLoader()
+        #self.leek_loader = LeekLoader()
 
-        self.leek_loader.load()
+        #self.leek_loader.load()
         self.config.load()
         self.engine.start()
 

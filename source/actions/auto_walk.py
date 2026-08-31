@@ -66,9 +66,18 @@ class AutoWalk():
     def _update_window_state(self, event):
         self.current_window = event.data
 
-    def _emit_character_walking_animation_event_bus(self, isWalking=True, isToRight=True):
+    def _emit_character_walking_animation_event_bus(
+        self,
+        isWalking=True,
+        isToRight=True
+    ):
+    
+        if self.character.is_doing_an_action:
+            return
+    
         if isWalking:
-            self.character.change_animation(("walk_right" if isToRight else "walk_left"))
+            self.character.change_animation(
+                "walk_right" if isToRight else "walk_left"
+            )
         else:
-            if self.character.is_doing_an_action == False:
-                self.character.change_animation("idle")
+            self.character.change_animation("idle")

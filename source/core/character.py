@@ -29,6 +29,15 @@ class Character():
     def change_animation(self, animation_name:str):
         if self.animation_name == animation_name: return
 
+        print(
+            "[ANIMATION]",
+            self.animation_name,
+            "->",
+            animation_name,
+            "action:",
+            self.is_doing_an_action
+        )
+
         self.animation_name = animation_name
 
         self.bus.emit(
@@ -37,7 +46,7 @@ class Character():
         )
 
     def _pre_update(self, event):
-        if self.has_focus: self.change_animation("dragging")
+        if self.is_dragging: self.change_animation("dragging")
 
     def _on_sprite_changed(self, event):
         self.width = event.data.width()

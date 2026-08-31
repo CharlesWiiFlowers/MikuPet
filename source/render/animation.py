@@ -152,6 +152,16 @@ class Animation:
             if loop_count is not None and loop_count != -1:
 
                 if self.passed_frames_in_animation >= loop_count:
+
+                    print(
+                        "[ACTION END]",
+                        self.character.animation_name,
+                        "passed:",
+                        self.passed_frames_in_animation,
+                        "loop:",
+                        loop_count
+                    )
+
                     self.character.change_animation("idle")
 
                     self.character.is_doing_an_action = False
